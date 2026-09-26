@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="sky" cx="50%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#3a1f4d"/>
+      <stop offset=".55" stop-color="#15142b"/>
+      <stop offset="1" stop-color="#07070f"/>
+    </radialGradient>
+    <radialGradient id="moon" cx="45%" cy="40%" r="60%">
+      <stop offset="0" stop-color="#fff8e4"/>
+      <stop offset="1" stop-color="#e8d7a8"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#sky)"/>
+  <g fill="#fff" opacity=".8">
+    <circle cx="70" cy="80" r="3"/><circle cx="130" cy="150" r="2"/><circle cx="440" cy="90" r="2.5"/>
+    <circle cx="460" cy="220" r="2"/><circle cx="60" cy="250" r="2"/><circle cx="400" cy="30" r="1.8"/>
+  </g>
+  <circle cx="300" cy="200" r="130" fill="#f4e9c8" opacity=".45" filter="url(#glow)"/>
+  <circle cx="300" cy="200" r="122" fill="url(#moon)"/>
+  <circle cx="260" cy="170" r="16" fill="#d8c795" opacity=".6"/>
+  <circle cx="340" cy="240" r="22" fill="#d8c795" opacity=".5"/>
+  <circle cx="330" cy="150" r="9" fill="#d8c795" opacity=".6"/>
+  <!-- collina -->
+  <path d="M0 440 Q 150 380 300 420 T 512 400 L 512 512 L 0 512 Z" fill="#0a0812"/>
+  <!-- lupo che ulula -->
+  <path fill="#0a0812" d="
+    M 150 440
+    C 150 380 165 330 190 290
+    C 205 265 215 240 222 212
+    L 226 170
+    L 214 128 L 238 150
+    L 250 118 L 262 150
+    C 285 142 305 128 325 108
+    L 360 78 L 366 88
+    L 338 122 L 352 118 L 346 132
+    C 330 150 310 168 292 182
+    C 285 200 282 225 290 255
+    C 300 290 318 330 330 380
+    C 334 400 336 420 336 440 Z"/>
+  <path d="M 200 440 C 205 425 225 418 240 425 L 236 440 Z" fill="#0a0812"/>
+  <text x="256" y="492" text-anchor="middle" font-family="Georgia, serif" font-size="58" font-weight="700" fill="#c62834" letter-spacing="6">LUPUS</text>
+</svg>
