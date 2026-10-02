@@ -1,5 +1,5 @@
 import { h, modal, confirmBox, keepAwake, fill, add } from './ui.js';
-import { load, save, settings } from './storage.js';
+import { load, save, settings, listSounds } from './storage.js';
 import { getRole, setCustomRoles, TEAMS } from './roles.js';
 import * as audio from './audio.js';
 import { renderSetup } from './screens/setup.js';
@@ -13,6 +13,8 @@ import { renderSettings } from './screens/settings.js';
 
 setCustomRoles(load('customRoles', []));
 audio.setVolume(settings().volume);
+// Prepara in anticipo i suoni caricati: così partono subito al tocco anche su iPhone.
+listSounds().then((list) => list.forEach((s) => audio.registerUser(s.id, s.blob)));
 
 const TABS = [
   { id: 'game', label: 'Partita', icon: '🌕' },

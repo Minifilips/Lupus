@@ -4,6 +4,7 @@ import { buildNightSteps, resolveNight, applyDeaths, mythomaniacRole, checkWin }
 import { settings } from '../storage.js';
 import { speak, speakSequence } from '../voice.js';
 import * as audio from '../audio.js';
+import { playMoment } from '../moments.js';
 import { gameHeader } from '../app.js';
 
 // Griglia di giocatori da toccare. `blocked(p)` restituisce un motivo per disabilitarlo.
@@ -37,6 +38,11 @@ function startAmbient() {
   if (a) audio.startLoop(a);
 }
 
+// Quando si apre un passo della notte: i lupi aprono gli occhi → parte l'ululato.
+function enterStep(step) {
+  if (step?.roleId === 'lupo') playMoment('wolves');
+}
+
 function stepCall(step) {
   const r = getRole(step.roleId);
   return r.call || `${r.name}, apri gli occhi.`;
@@ -65,7 +71,9 @@ export function renderNight(app) {
         onclick: () => {
           audio.unlock();
           startAmbient();
+          playMoment('sleep');
           const first = g.steps[0];
+          enterStep(first);
           speakSequence(['Il villaggio si addormenta. Tutti chiudete gli occhi.', first && stepCall(first)], 3000);
           app.update((game) => { game.step = 0; });
         },
@@ -106,7 +114,7 @@ export function renderNight(app) {
       h('span', {}, `“${stepCall(step)}”`),
       h('button', {
         class: 'btn small ghost',
-        onclick: () => speak(stepCall(step)),
+        onclick: () => { speak(stepCall(step)); enterStep(step); },
       }, '🔊 Ripeti')),
     body,
     h('div', { class: 'row step-nav' },
@@ -119,6 +127,7 @@ export function renderNight(app) {
         onclick: () => {
           const next = g.steps[g.step + 1];
           speakSequence([stepClose(step), next ? stepCall(next) : null], 2500);
+          enterStep(next);
           app.update((game) => { game.step++; });
         },
       }, isLast ? '😴 Chiudi gli occhi e vai all’alba' : '😴 Chiudi gli occhi · Avanti')),
@@ -341,6 +350,7 @@ export function finishNight(app) {
   app.log(`Notte ${g.night}`, lines);
 
   audio.stopAll();
+  playMoment('dawn');
   app.save();
   app.render();
 }

@@ -1,5 +1,6 @@
 import { h, confirmBox, fill, add } from '../ui.js';
-import { listSounds, addSound, deleteSound, updateSettings } from '../storage.js';
+import { listSounds, addSound, deleteSound, updateSettings, settings } from '../storage.js';
+import { SLOTS, cleanName, slotFor } from '../slots.js';
 import { speak, canSpeak } from '../voice.js';
 import * as audio from '../audio.js';
 
@@ -40,9 +41,16 @@ export function renderSoundbar() {
   const fileInput = h('input', {
     type: 'file', accept: 'audio/*', multiple: true, style: { display: 'none' },
     onchange: async () => {
+      const slots = { ...settings().slots };
       for (const f of fileInput.files) {
-        userSounds.push(await addSound(f.name.replace(/\.[^.]+$/, '').slice(0, 24), f));
+        const item = await addSound(cleanName(f.name), f);
+        audio.registerUser(item.id, item.blob);
+        userSounds.push(item);
+        // Se il nome del file assomiglia a un momento libero (es. "ululato", "Here Comes the Sun"), lo assegna da solo.
+        const slot = slotFor(f.name, slots);
+        if (slot) slots[slot] = item.id;
       }
+      updateSettings({ slots });
       fileInput.value = '';
       drawUser();
     },
@@ -64,6 +72,9 @@ export function renderSoundbar() {
               if (await confirmBox(`Eliminare "${s.name}"?`, 'Elimina')) {
                 audio.forgetUser(s.id);
                 await deleteSound(s.id);
+                const slots = { ...settings().slots };
+                for (const k of Object.keys(slots)) if (slots[k] === s.id) delete slots[k];
+                updateSettings({ slots });
                 userSounds = userSounds.filter((x) => x.id !== s.id);
                 drawUser();
               }
@@ -76,8 +87,24 @@ export function renderSoundbar() {
           h('span', { class: 'sound-emoji' }, '➕'), h('span', {}, 'Aggiungi mp3'))),
       userSounds.length ? null : h('p', { class: 'muted small' },
         'Qui metti i tuoi mp3 (ululato, canzoni…): puoi sceglierne tanti insieme e restano sul telefono, anche offline.'),
+      userSounds.length ? slotsPanel() : null,
       fileInput);
   }
+  // Quale suono parte da solo in ogni momento della partita.
+  function slotsPanel() {
+    const assigned = settings().slots || {};
+    return h('div', { class: 'panel' },
+      h('div', { class: 'section-title' }, '📌 Parte da solo'),
+      h('p', { class: 'muted small' }, 'Scegli quale suono parte in automatico in ogni momento della partita.'),
+      SLOTS.map((slot) => h('label', { class: 'setting' },
+        h('span', { class: 'grow' }, `${slot.emoji} ${slot.label}`),
+        h('select', {
+          onchange: (e) => updateSettings({ slots: { ...settings().slots, [slot.id]: e.target.value || undefined } }),
+        },
+        h('option', { value: '' }, '— nessuno —'),
+        userSounds.map((u) => h('option', { value: u.id, selected: assigned[slot.id] === u.id }, u.name))))));
+  }
+
   drawUser();
   listSounds().then((list) => { userSounds = list; drawUser(); });
 

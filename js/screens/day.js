@@ -4,6 +4,7 @@ import { applyDeaths, checkWin, assignRoles, WIN_TEXT } from '../rules.js';
 import { settings, updateSettings, load } from '../storage.js';
 import { speak } from '../voice.js';
 import * as audio from '../audio.js';
+import { playMoment, stopMoment } from '../moments.js';
 import { gameHeader, newGame } from '../app.js';
 import { playerPicker, startNight } from './night.js';
 
@@ -70,6 +71,9 @@ export function renderDawn(app) {
     const txt = names.length
       ? `Il villaggio si sveglia. Stanotte ${names.length > 1 ? 'sono morti' : 'è morto'} ${names.join(' e ')}.`
       : 'Il villaggio si sveglia. Stanotte non è morto nessuno!';
+    audio.stopAll(); // ferma la canzone del mattino
+    // Con morti parte il suono dell'annuncio, e la voce legge i nomi quando finisce.
+    if (names.length && playMoment('death', { onEnd: () => speak(txt) })) return;
     speak(txt);
   };
 
@@ -105,6 +109,7 @@ const timer = {
   id: null,
   reset(sec) {
     this.stop();
+    stopMoment('talk', { rewind: true });
     this.total = sec;
     this.left = sec;
     this.paint();
@@ -112,6 +117,7 @@ const timer = {
   start() {
     if (this.running || this.left <= 0) return;
     this.running = true;
+    playMoment('talk', { restart: false });
     this.id = setInterval(() => {
       this.left--;
       if (this.left <= 10 && this.left > 0) audio.beep(false);
@@ -129,6 +135,7 @@ const timer = {
   stop() {
     this.running = false;
     clearInterval(this.id);
+    stopMoment('talk');
     this.paint();
   },
   paint() {

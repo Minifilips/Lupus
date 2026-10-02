@@ -28,6 +28,7 @@ const DEFAULT_SETTINGS = {
   ambient: 'crickets',
   dayMinutes: 3,
   volume: 0.8,
+  slots: {}, // momento della partita -> id del suono caricato
 };
 
 let current = { ...DEFAULT_SETTINGS, ...load('settings', {}) };
@@ -70,8 +71,10 @@ export function listSounds() {
   return tx('readonly', (s) => s.getAll()).catch(() => []);
 }
 
+let seq = 0;
+
 export function addSound(name, blob) {
-  const item = { id: `u${Date.now()}`, name, blob };
+  const item = { id: `u${Date.now()}${seq++}`, name, blob };
   return tx('readwrite', (s) => s.put(item)).then(() => item);
 }
 

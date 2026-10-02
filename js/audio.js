@@ -48,7 +48,7 @@ export function unlock() {
 export function setVolume(v) {
   volume = v;
   if (master) master.gain.setTargetAtTime(v, ctx.currentTime, 0.05);
-  userAudios.forEach((a) => { a.volume = v; });
+  userAudios.forEach((a) => { a.volume = Math.min(1, v * (a.rel ?? 1)); });
 }
 
 export function getVolume() {
@@ -209,24 +209,64 @@ export function toggleLoop(id) {
 
 const userAudios = new Map(); // id -> HTMLAudioElement
 
-export function playUser(id, blob) {
-  unlock();
+// Prepara l'audio in anticipo: così play() parte subito dentro il tocco (iOS lo richiede).
+export function registerUser(id, blob) {
   let a = userAudios.get(id);
   if (!a) {
     a = new Audio(URL.createObjectURL(blob));
+    a.preload = 'auto';
+    a.dataset.id = id;
+    a.rel = 1;
     a.volume = volume;
-    a.addEventListener('ended', notify);
+    a.onEndCb = null; // da eseguire una sola volta quando finisce da sola
+    a.addEventListener('ended', () => {
+      const cb = a.onEndCb;
+      a.onEndCb = null;
+      cb?.();
+      notify();
+    });
     a.addEventListener('pause', notify);
     a.addEventListener('play', notify);
     userAudios.set(id, a);
   }
+  return a;
+}
+
+// Pulsante della soundbar: parte da capo, oppure si ferma se sta già suonando.
+export function playUser(id, blob) {
+  unlock();
+  const a = registerUser(id, blob);
+  a.onEndCb = null;
   if (!a.paused) {
     a.pause();
     a.currentTime = 0;
   } else {
+    a.rel = 1;
+    a.volume = volume;
     a.currentTime = 0;
     a.play().catch(() => {});
   }
+}
+
+// Suono assegnato a un momento della partita. Restituisce false se non è stato caricato.
+export function playUserSound(id, { volume: rel = 1, onEnd, restart = true } = {}) {
+  const a = userAudios.get(id);
+  if (!a) return false;
+  unlock();
+  a.rel = rel;
+  a.volume = Math.min(1, volume * rel);
+  if (restart) a.currentTime = 0;
+  a.onEndCb = onEnd || null;
+  a.play().catch(() => {});
+  return true;
+}
+
+export function stopUser(id, { rewind = false } = {}) {
+  const a = userAudios.get(id);
+  if (!a) return;
+  a.onEndCb = null;
+  a.pause();
+  if (rewind) a.currentTime = 0;
 }
 
 export function isUserPlaying(id) {
@@ -245,7 +285,7 @@ export function forgetUser(id) {
 
 export function stopAll() {
   [...loops.keys()].forEach(stopLoop);
-  userAudios.forEach((a) => { a.pause(); a.currentTime = 0; });
+  userAudios.forEach((a) => { a.onEndCb = null; a.pause(); a.currentTime = 0; });
   if (ctx) {
     // Taglia anche gli effetti in corso ricreando il master.
     const old = master;

@@ -337,3 +337,6 @@ ol { padding-left: 20px; margin: 4px 0; }
 .link-btn.sp { border-color: #1d5c34; background: #11261a; }
 .link-btn:active { transform: scale(.95); }
 @media (max-width: 380px) { .link-btn { padding: 8px 7px; font-size: 12px; } }
+
+.sound.user span:last-child { white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; line-height: 1.15; word-break: break-word; }
+.setting select { max-width: 52%; }
