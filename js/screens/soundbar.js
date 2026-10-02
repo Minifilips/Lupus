@@ -1,6 +1,6 @@
 import { h, confirmBox, fill, add } from '../ui.js';
 import { listSounds, addSound, deleteSound, updateSettings, settings } from '../storage.js';
-import { SLOTS, cleanName, slotFor } from '../slots.js';
+import { SLOTS, cleanName, slotFor, isAudioFile, audioMime } from '../slots.js';
 import { speak, canSpeak } from '../voice.js';
 import * as audio from '../audio.js';
 
@@ -38,20 +38,41 @@ export function renderSoundbar() {
   });
 
   let userSounds = [];
+  let report = null; // esito dell'ultimo caricamento: { ok, failed: [] }
+
+  const explain = (err) => {
+    if (err?.name === 'NotReadableError') return 'non riesco a leggerlo (se è su iCloud, aprilo prima nell\'app File per scaricarlo)';
+    if (err?.name === 'QuotaExceededError') return 'memoria piena';
+    return err?.message || 'errore sconosciuto';
+  };
+
+  // Nessun filtro "accept": su iPhone e iPad il filtro audio nasconde o blocca file mp3 validi.
   const fileInput = h('input', {
-    type: 'file', accept: 'audio/*', multiple: true, style: { display: 'none' },
+    type: 'file', multiple: true, style: { display: 'none' },
     onchange: async () => {
+      const files = [...fileInput.files];
+      fileInput.value = '';
       const slots = { ...settings().slots };
-      for (const f of fileInput.files) {
-        const item = await addSound(cleanName(f.name), f);
-        audio.registerUser(item.id, item.blob);
-        userSounds.push(item);
-        // Se il nome del file assomiglia a un momento libero (es. "ululato", "Here Comes the Sun"), lo assegna da solo.
-        const slot = slotFor(f.name, slots);
-        if (slot) slots[slot] = item.id;
+      const failed = [];
+      let ok = 0;
+      for (const f of files) {
+        if (!isAudioFile(f)) { failed.push(`${f.name}: non sembra un file audio`); continue; }
+        try {
+          // Copia i dati subito e con il tipo giusto: Safari lo richiede per riprodurre l'mp3.
+          const blob = new Blob([await f.arrayBuffer()], { type: audioMime(f) });
+          const item = await addSound(cleanName(f.name), blob);
+          audio.registerUser(item.id, item.blob);
+          userSounds.push(item);
+          ok++;
+          // Se il nome del file assomiglia a un momento libero (es. "ululato", "Here Comes the Sun"), lo assegna da solo.
+          const slot = slotFor(f.name, slots);
+          if (slot) slots[slot] = item.id;
+        } catch (err) {
+          failed.push(`${f.name}: ${explain(err)}`);
+        }
       }
       updateSettings({ slots });
-      fileInput.value = '';
+      report = { ok, failed };
       drawUser();
     },
   });
@@ -87,6 +108,9 @@ export function renderSoundbar() {
           h('span', { class: 'sound-emoji' }, '➕'), h('span', {}, 'Aggiungi mp3'))),
       userSounds.length ? null : h('p', { class: 'muted small' },
         'Qui metti i tuoi mp3 (ululato, canzoni…): puoi sceglierne tanti insieme e restano sul telefono, anche offline.'),
+      report ? h('div', { class: 'notice' },
+        report.ok ? h('div', {}, `✅ Aggiunti ${report.ok} suoni`) : null,
+        report.failed.map((f) => h('div', { class: 'warn small' }, `⚠️ ${f}`))) : null,
       userSounds.length ? slotsPanel() : null,
       fileInput);
   }

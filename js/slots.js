@@ -25,3 +25,21 @@ export function slotFor(filename, assigned = {}) {
   const slot = SLOTS.find((s) => !assigned[s.id] && s.match.test(name));
   return slot ? slot.id : null;
 }
+
+const MIME_BY_EXT = {
+  mp3: 'audio/mpeg', m4a: 'audio/mp4', m4b: 'audio/mp4', mp4: 'audio/mp4', aac: 'audio/aac',
+  wav: 'audio/wav', aif: 'audio/aiff', aiff: 'audio/aiff', caf: 'audio/x-caf',
+  ogg: 'audio/ogg', oga: 'audio/ogg', opus: 'audio/ogg', flac: 'audio/flac', webm: 'audio/webm',
+};
+
+const extOf = (name) => (name.match(/\.([a-z0-9]+)$/i)?.[1] || '').toLowerCase();
+
+// Su iPhone e iPad il tipo del file spesso è vuoto: lo ricava dall'estensione.
+export function isAudioFile({ name = '', type = '' }) {
+  return /^(audio|video)\//.test(type) || extOf(name) in MIME_BY_EXT;
+}
+
+export function audioMime({ name = '', type = '' }) {
+  if (/^audio\//.test(type)) return type;
+  return MIME_BY_EXT[extOf(name)] || 'audio/mpeg';
+}
