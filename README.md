@@ -7,7 +7,7 @@ Web app da installare sull'iPhone per fare da master a **Lupus** (Lupus in Tabul
 - **🔊 Soundbar**
   - Atmosfere in loop: grilli e battito cardiaco (sintetizzati dall'app, funzionano offline).
   - Puoi caricare i tuoi mp3 (ululato, canzoni…): si scelgono tutti insieme e restano sul telefono, non nel repo.
-  - Ogni mp3 viene assegnato da solo a un momento della partita in base al nome del file (ululato → lupi, "Here Comes the Sun" → mattina, "Annuncio dei morti" → annuncio, "Cotton Eye Joe" → discussione, "Brahms" → il villaggio si addormenta). Il pannello "📌 Parte da solo" permette di cambiare le assegnazioni.
+  - Ogni mp3 viene assegnato da solo a un momento della partita in base al nome del file (ululato → pulsante 🐺 nel passo dei lupi, "Here Comes the Sun" → mattina, "Annuncio dei morti" → annuncio, "Cotton Eye Joe" → discussione, "Brahms" → il villaggio si addormenta). Il pannello "📌 Parte da solo" permette di cambiare le assegnazioni.
   - Le frasi da dire ad alta voce compaiono a schermo: il narratore sei tu.
 - **🎵 Musica**: per ogni momento della partita e per ogni ruolo, una lista di brani con link a YouTube e Spotify, più una lista di effetti sonori. Sono link di ricerca, non file: nessun mp3 protetto da copyright nel repo. Le scelte già fatte hanno ✅.
 - **🎭 Personaggi**

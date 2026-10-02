@@ -37,7 +37,7 @@ function startAmbient() {
   if (a) audio.startLoop(a);
 }
 
-// Quando si apre un passo della notte: i lupi aprono gli occhi → parte l'ululato.
+// Ululato: parte solo dal pulsante nel passo dei lupi.
 function enterStep(step) {
   if (step?.roleId === 'lupo') playMoment('wolves');
 }
@@ -71,8 +71,6 @@ export function renderNight(app) {
           audio.unlock();
           startAmbient();
           playMoment('sleep');
-          const first = g.steps[0];
-          enterStep(first);
           app.update((game) => { game.step = 0; });
         },
       }, '🌙 Il villaggio si addormenta'),
@@ -123,8 +121,6 @@ export function renderNight(app) {
       h('button', {
         class: 'btn big primary grow',
         onclick: () => {
-          const next = g.steps[g.step + 1];
-          enterStep(next);
           app.update((game) => { game.step++; });
         },
       }, isLast ? '😴 Chiudi gli occhi e vai all’alba' : '😴 Chiudi gli occhi · Avanti')),
