@@ -1,6 +1,6 @@
 // Cache offline: l'app funziona anche senza connessione.
 // Aggiorna VERSION a ogni rilascio per forzare il download dei file nuovi.
-const VERSION = 'lupus-v5';
+const VERSION = 'lupus-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -15,7 +15,6 @@ const ASSETS = [
   './js/slots.js',
   './js/storage.js',
   './js/ui.js',
-  './js/voice.js',
   './js/screens/day.js',
   './js/screens/music.js',
   './js/screens/night.js',

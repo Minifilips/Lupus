@@ -1,6 +1,5 @@
 import { h, confirmBox } from '../ui.js';
 import { settings, updateSettings } from '../storage.js';
-import { speak, canSpeak } from '../voice.js';
 import * as audio from '../audio.js';
 
 function toggle(label, key, hint) {
@@ -13,31 +12,12 @@ function toggle(label, key, hint) {
     h('span', { class: 'switch' }, input, h('span', { class: 'slider' })));
 }
 
-function range(label, key, min, max, step) {
-  const out = h('span', { class: 'small muted' }, settings()[key]);
-  return h('label', { class: 'setting column' },
-    h('div', { class: 'row' }, h('span', { class: 'grow' }, label), out),
-    h('input', {
-      type: 'range', min, max, step, value: settings()[key],
-      oninput: (e) => { updateSettings({ [key]: Number(e.target.value) }); out.textContent = e.target.value; },
-    }));
-}
-
 export function renderSettings() {
   const s = settings();
   const standalone = window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone;
 
   return h('div', { class: 'screen' },
     h('header', { class: 'game-header' }, h('h1', {}, '⚙️ Opzioni')),
-
-    h('div', { class: 'panel' },
-      h('div', { class: 'section-title' }, '🗣️ Voce del narratore'),
-      canSpeak() ? [
-        toggle('Narrazione automatica', 'voice', 'Durante la notte l’app chiama i ruoli ad alta voce'),
-        range('Velocità', 'voiceRate', 0.6, 1.3, 0.05),
-        range('Tono', 'voicePitch', 0.5, 1.5, 0.05),
-        h('button', { class: 'btn ghost', onclick: () => speak('Il villaggio si addormenta. Lupi, aprite gli occhi.', { force: true }) }, '▶️ Prova la voce'),
-      ] : h('p', { class: 'muted' }, 'La sintesi vocale non è disponibile su questo browser.')),
 
     h('div', { class: 'panel' },
       h('div', { class: 'section-title' }, '🌙 Notte'),

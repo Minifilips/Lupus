@@ -8,7 +8,7 @@ Web app da installare sull'iPhone per fare da master a **Lupus** (Lupus in Tabul
   - Atmosfere in loop: grilli e battito cardiaco (sintetizzati dall'app, funzionano offline).
   - Puoi caricare i tuoi mp3 (ululato, canzoni…): si scelgono tutti insieme e restano sul telefono, non nel repo.
   - Ogni mp3 viene assegnato da solo a un momento della partita in base al nome del file (ululato → lupi, "Here Comes the Sun" → mattina, "Annuncio dei morti" → annuncio, "Cotton Eye Joe" → discussione, "Brahms" → il villaggio si addormenta). Il pannello "📌 Parte da solo" permette di cambiare le assegnazioni.
-  - Frasi del narratore lette dalla voce italiana del telefono.
+  - Le frasi da dire ad alta voce compaiono a schermo: il narratore sei tu.
 - **🎵 Musica**: per ogni momento della partita e per ogni ruolo, una lista di brani con link a YouTube e Spotify, più una lista di effetti sonori. Sono link di ricerca, non file: nessun mp3 protetto da copyright nel repo. Le scelte già fatte hanno ✅.
 - **🎭 Personaggi**
   - Quelli che giocate di solito: Lupo, Contadino, Veggente, Puttana (dorme da qualcuno e lo salva dai lupi), Prete kamikaze (una sola volta può lanciarsi su un giocatore: se è un lupo muore il lupo, altrimenti muore lui) e Folle (scemo del villaggio).
@@ -17,7 +17,7 @@ Web app da installare sull'iPhone per fare da master a **Lupus** (Lupus in Tabul
   - Il bottone "Bilancia" propone una composizione adatta al numero di giocatori.
   - Il telefono passa di mano in mano e ognuno gira la propria carta.
 - **🌙 Notte guidata**
-  - L'app chiama i ruoli nell'ordine giusto con la voce, e tu tocchi le scelte di ogni ruolo.
+  - L’app ti mostra i ruoli da chiamare nell’ordine giusto (la frase da dire è scritta a schermo, la voce è la tua) e tu tocchi le scelte di ogni ruolo.
   - Chiama anche i ruoli morti (si può disattivare), così nessuno capisce chi è uscito.
   - All'alba calcola da sola chi è morto: puttana, prete, cortigiana, criceto, strega, innamorati, mitomane, cacciatore.
 - **☀️ Giorno**: timer della discussione con bip finali, conteggio dei voti, rogo e controllo automatico della vittoria.

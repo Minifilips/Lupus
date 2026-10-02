@@ -2,7 +2,6 @@ import { h, vibrate, fill, add } from '../ui.js';
 import { getRole, looksLikeWolf } from '../roles.js';
 import { buildNightSteps, resolveNight, applyDeaths, mythomaniacRole, checkWin } from '../rules.js';
 import { settings } from '../storage.js';
-import { speak, speakSequence } from '../voice.js';
 import * as audio from '../audio.js';
 import { playMoment } from '../moments.js';
 import { gameHeader } from '../app.js';
@@ -74,7 +73,6 @@ export function renderNight(app) {
           playMoment('sleep');
           const first = g.steps[0];
           enterStep(first);
-          speakSequence(['Il villaggio si addormenta. Tutti chiudete gli occhi.', first && stepCall(first)], 3000);
           app.update((game) => { game.step = 0; });
         },
       }, '🌙 Il villaggio si addormenta'),
@@ -112,10 +110,10 @@ export function renderNight(app) {
         h('div', { class: 'muted small' }, holders.map((p) => `${p.name}${p.alive ? '' : ' ☠️'}`).join(', ')))),
     h('div', { class: 'call' },
       h('span', {}, `“${stepCall(step)}”`),
-      h('button', {
+      step.roleId === 'lupo' ? h('button', {
         class: 'btn small ghost',
-        onclick: () => { speak(stepCall(step)); enterStep(step); },
-      }, '🔊 Ripeti')),
+        onclick: () => enterStep(step),
+      }, '🐺 Ululato') : null),
     body,
     h('div', { class: 'row step-nav' },
       h('button', {
@@ -126,7 +124,6 @@ export function renderNight(app) {
         class: 'btn big primary grow',
         onclick: () => {
           const next = g.steps[g.step + 1];
-          speakSequence([stepClose(step), next ? stepCall(next) : null], 2500);
           enterStep(next);
           app.update((game) => { game.step++; });
         },

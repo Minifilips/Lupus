@@ -2,7 +2,6 @@ import { h, vibrate, confirmBox, add } from '../ui.js';
 import { getRole, TEAMS } from '../roles.js';
 import { applyDeaths, checkWin, assignRoles, WIN_TEXT } from '../rules.js';
 import { settings, updateSettings, load } from '../storage.js';
-import { speak } from '../voice.js';
 import * as audio from '../audio.js';
 import { playMoment, stopMoment } from '../moments.js';
 import { gameHeader, newGame } from '../app.js';
@@ -57,7 +56,6 @@ function winnerButton(app) {
     h('button', {
       class: 'btn big primary',
       onclick: () => {
-        speak(`${w.title} ${w.text}`);
         app.update((game) => { game.phase = 'over'; app.log('Fine', [w.title]); });
       },
     }, '🏆 Mostra il finale'));
@@ -67,14 +65,8 @@ export function renderDawn(app) {
   const g = app.game;
   const deaths = g.dawn?.deaths || [];
   const announce = () => {
-    const names = deaths.map((d) => nameOf(g, d.id));
-    const txt = names.length
-      ? `Il villaggio si sveglia. Stanotte ${names.length > 1 ? 'sono morti' : 'è morto'} ${names.join(' e ')}.`
-      : 'Il villaggio si sveglia. Stanotte non è morto nessuno!';
     audio.stopAll(); // ferma la canzone del mattino
-    // Con morti parte il suono dell'annuncio, e la voce legge i nomi quando finisce.
-    if (names.length && playMoment('death', { onEnd: () => speak(txt) })) return;
-    speak(txt);
+    if (deaths.length) playMoment('death');
   };
 
   return h('div', { class: 'screen dawn' },
@@ -83,7 +75,7 @@ export function renderDawn(app) {
       h('div', { class: 'section-title' }, '🌅 Cosa è successo stanotte'),
       deaths.length ? deaths.map((d) => deathCard(g, d)) : h('div', { class: 'good-text big-text' }, '🎉 Nessun morto!'),
       g.dawn?.notes?.length ? h('ul', { class: 'notes' }, g.dawn.notes.map((n) => h('li', {}, n))) : null,
-      h('button', { class: 'btn', onclick: announce }, '📢 Annuncia al villaggio')),
+      h('button', { class: 'btn', onclick: announce }, '⚰️ Musica dell’annuncio')),
     hunterUI(app, `Notte ${g.night}`),
     winnerButton(app),
     !g.winner && !g.pendingHunters.length ? h('button', {
@@ -126,7 +118,6 @@ const timer = {
         this.stop();
         audio.beep(true);
         vibrate([200, 100, 200]);
-        speak('Tempo scaduto!');
       }
       this.paint();
     }, 1000);
@@ -259,7 +250,6 @@ async function lynch(app, id) {
     return;
   }
   const p = g.players.find((x) => x.id === id);
-  speak(`${p.name} è stato mandato al rogo.`);
   app.update((game) => {
     game.lastLynched = id;
     if (p.role === 'scemo') {

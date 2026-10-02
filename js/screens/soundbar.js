@@ -1,19 +1,7 @@
 import { h, confirmBox, fill, add } from '../ui.js';
 import { listSounds, addSound, deleteSound, updateSettings, settings } from '../storage.js';
 import { SLOTS, cleanName, slotFor, isAudioFile, audioMime } from '../slots.js';
-import { speak, canSpeak } from '../voice.js';
 import * as audio from '../audio.js';
-
-const PHRASES = [
-  'Il villaggio si addormenta. Tutti chiudete gli occhi.',
-  'Lupi, aprite gli occhi. Scegliete la vostra vittima.',
-  'Lupi, chiudete gli occhi.',
-  'Il villaggio si sveglia.',
-  'Stanotte non è morto nessuno!',
-  'Si apre la discussione. Chi sono i lupi?',
-  'Votate chi mandare al rogo.',
-  'Silenzio! Non sbirciate!',
-];
 
 let editing = false;
 let unsubscribe = null;
@@ -132,9 +120,6 @@ export function renderSoundbar() {
   drawUser();
   listSounds().then((list) => { userSounds = list; drawUser(); });
 
-  const custom = h('input', { type: 'text', placeholder: 'Scrivi una frase da far dire al narratore…', enterKeyHint: 'send',
-    onkeydown: (e) => { if (e.key === 'Enter') speak(custom.value, { force: true }); } });
-
   add(root,
     h('header', { class: 'game-header' }, h('h1', {}, '🔊 Soundbar')),
     h('div', { class: 'panel' },
@@ -149,11 +134,6 @@ export function renderSoundbar() {
     h('div', { class: 'section-title' }, '🌙 Atmosfera (in loop)'),
     loopsBox,
     userBox,
-    canSpeak() ? [
-      h('div', { class: 'section-title' }, '🗣️ Frasi del narratore'),
-      h('div', { class: 'phrases' }, PHRASES.map((p) => h('button', { class: 'phrase', onclick: () => speak(p, { force: true }) }, p))),
-      h('div', { class: 'add-row' }, custom, h('button', { class: 'btn', onclick: () => speak(custom.value, { force: true }) }, 'Leggi')),
-    ] : null,
   );
   return root;
 }

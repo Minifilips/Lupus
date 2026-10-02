@@ -21,9 +21,6 @@ export function save(name, value) {
 }
 
 const DEFAULT_SETTINGS = {
-  voice: true,
-  voiceRate: 0.9,
-  voicePitch: 0.9,
   bluff: true,
   ambient: 'crickets',
   dayMinutes: 3,
