@@ -22,6 +22,7 @@ export function save(name, value) {
 
 const DEFAULT_SETTINGS = {
   bluff: true,
+  revealDead: true, // ai morti si mostra il loro ruolo sul telefono
   ambient: 'crickets',
   dayMinutes: 3,
   volume: 0.8,

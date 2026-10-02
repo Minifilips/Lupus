@@ -345,3 +345,17 @@ ol { padding-left: 20px; margin: 4px 0; }
 
 .sound.user span:last-child { white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; line-height: 1.15; word-break: break-word; }
 .setting select { max-width: 52%; }
+
+/* ---------- Lobby e cittadino ---------- */
+.code { font-family: var(--serif); font-size: 64px; font-weight: 700; letter-spacing: 12px; text-align: center; color: var(--accent2); padding: 4px 0 4px 12px; }
+.code-input { font-family: var(--serif); font-size: 32px; text-align: center; letter-spacing: 10px; text-transform: uppercase; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #555; margin-right: 6px; }
+.dot.on { background: var(--good); box-shadow: 0 0 8px var(--good); }
+.citizen { min-height: calc(100dvh - 40px); }
+.citizen-night .hero { padding-top: 90px; }
+.citizen-foot { display: flex; gap: 8px; justify-content: space-between; margin-top: auto; padding-top: 24px; }
+.citizen-foot .btn { margin: 0; }
+.phones .row { justify-content: space-between; padding: 4px 0; }
+.assign-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid #ffffff10; }
+.assign-row select { width: 52%; }
+body[data-phase='night'] .tabs { opacity: .9; }

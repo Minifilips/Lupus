@@ -10,6 +10,13 @@ Web app da installare sull'iPhone per fare da master a **Lupus** (Lupus in Tabul
   - Ogni mp3 viene assegnato da solo a un momento della partita in base al nome del file (ululato → pulsante 🐺 nel passo dei lupi, "Here Comes the Sun" → mattina, "Annuncio dei morti" → annuncio, "Cotton Eye Joe" → discussione, "Brahms" → il villaggio si addormenta). Il pannello "📌 Parte da solo" permette di cambiare le assegnazioni.
   - Le frasi da dire ad alta voce compaiono a schermo: il narratore sei tu.
 - **🎵 Musica**: per ogni momento della partita e per ogni ruolo, una lista di brani con link a YouTube e Spotify, più una lista di effetti sonori. Sono link di ricerca, non file: nessun mp3 protetto da copyright nel repo. Le scelte già fatte hanno ✅.
+- **📲 Partita online (tutti col proprio telefono)**
+  - Al primo avvio scegli **Narratore** o **Cittadino** (cambiabile da Opzioni).
+  - Il narratore apre la lobby e comunica il codice di 4 lettere; i cittadini scelgono Cittadino, inseriscono codice e nome ed entrano.
+  - Il narratore distribuisce i ruoli a caso o li assegna a mano; ognuno vede solo il proprio ruolo sul proprio telefono. Notte, giorno, morte e fine partita compaiono anche sul telefono dei cittadini.
+  - Tutte le scelte (lupi, veggente, morti, voti) restano al narratore. Chi non ha il telefono si aggiunge a mano e usa il vecchio "passa il telefono".
+  - Se un telefono si blocca o ricarica l'app, rientra da solo con lo stesso ruolo.
+  - Connessione diretta tra telefoni (WebRTC con PeerJS, libreria inclusa in `js/vendor/`): il server pubblico di PeerJS serve solo per l'incontro iniziale, quindi serve internet su tutti i telefoni.
 - **🎭 Personaggi**
   - Quelli che giocate di solito: Lupo, Contadino, Veggente, Puttana (dorme da qualcuno e lo salva dai lupi), Prete kamikaze (una sola volta può lanciarsi su un giocatore: se è un lupo muore il lupo, altrimenti muore lui) e Folle (scemo del villaggio).
   - Altri ruoli già pronti: Cortigiana, Medium, Strega, Cacciatore, Cupido, Massone, Gufo, Criceto mannaro, Indemoniato, Mitomane, Bambina, Sindaco. Puoi anche crearne di tuoi.
@@ -61,6 +68,7 @@ npm test    # test delle regole (node --test)
 
 - `js/roles.js`: i personaggi e il bilanciamento automatico
 - `js/rules.js`: la logica pura (sequenza della notte, risoluzione dell'alba, vittoria)
+- `js/net.js`: lobby e connessioni (host narratore, client cittadino). `js/netlogic.js`: cosa vede ogni telefono, codici, controlli sui ruoli (logica pura, testata)
 - `js/audio.js`: grilli, battito e bip del timer con Web Audio, più la riproduzione degli mp3 caricati
 - `js/screens/`: le schermate dell'app
 - `sw.js`: la cache offline. Quando rilasci modifiche, aumenta `VERSION`.

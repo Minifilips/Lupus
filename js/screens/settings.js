@@ -1,6 +1,7 @@
 import { h, confirmBox } from '../ui.js';
 import { settings, updateSettings } from '../storage.js';
 import * as audio from '../audio.js';
+import * as net from '../net.js';
 
 function toggle(label, key, hint) {
   const input = h('input', {
@@ -12,7 +13,7 @@ function toggle(label, key, hint) {
     h('span', { class: 'switch' }, input, h('span', { class: 'slider' })));
 }
 
-export function renderSettings() {
+export function renderSettings(app) {
   const s = settings();
   const standalone = window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone;
 
@@ -29,6 +30,18 @@ export function renderSettings() {
         },
         h('option', { value: 'none', selected: s.ambient === 'none' }, 'Nessuno'),
         audio.LOOPS.map((l) => h('option', { value: l.id, selected: s.ambient === l.id }, `${l.emoji} ${l.name}`))))),
+
+    h('div', { class: 'panel' },
+      h('div', { class: 'section-title' }, '📲 Partita online'),
+      toggle('Mostra il ruolo ai morti', 'revealDead', 'Sul loro telefono vedono la carta dopo l’eliminazione'),
+      h('button', {
+        class: 'btn ghost',
+        onclick: async () => {
+          if (!(await confirmBox('Tornare alla scelta Narratore / Cittadino? La lobby aperta verrà chiusa.', 'Cambia'))) return;
+          net.stopHost();
+          app.setMode(null);
+        },
+      }, '🔁 Cambia modalità (Narratore / Cittadino)')),
 
     h('div', { class: 'panel' },
       h('div', { class: 'section-title' }, '📲 Installa sull’iPhone'),

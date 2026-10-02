@@ -10,6 +10,9 @@ import { renderSoundbar } from './screens/soundbar.js';
 import { renderMusic } from './screens/music.js';
 import { renderRoles } from './screens/roles-info.js';
 import { renderSettings } from './screens/settings.js';
+import { renderMode } from './screens/mode.js';
+import { renderCitizen } from './screens/citizen.js';
+import * as net from './net.js';
 
 setCustomRoles(load('customRoles', []));
 audio.setVolume(settings().volume);
@@ -81,6 +84,15 @@ migrate();
 export const app = {
   game: load('game', null) || newGame(),
   tab: load('tab', 'game'),
+  mode: load('mode', null), // 'narrator' | 'citizen' | null (da scegliere)
+  setMode(m) {
+    this.mode = m;
+    save('mode', m || undefined);
+    if (m === 'narrator' && load('lobbyCode', null)) net.startHost().catch(() => {});
+    if (m === 'citizen') net.resumeSession();
+    this.render();
+    window.scrollTo(0, 0);
+  },
   save() {
     save('game', this.game);
   },
@@ -106,9 +118,26 @@ export const app = {
 const main = document.getElementById('main');
 const nav = document.getElementById('tabs');
 
+// Schermo sempre acceso in partita; con la lobby aperta anche il narratore, sennò i telefoni si scollegano.
+function wantAwake() {
+  if (app.mode === 'citizen') return !!net.clientInfo().session;
+  return ['night', 'dawn', 'day'].includes(app.game.phase) || net.hostActive();
+}
+
 function render() {
   const g = app.game;
   fill(main);
+  if (app.mode !== 'narrator') {
+    const citizen = app.mode === 'citizen';
+    add(main, citizen ? renderCitizen(app) : renderMode(app));
+    fill(nav);
+    nav.style.display = 'none';
+    const ph = citizen ? net.clientInfo().state?.phase : null;
+    document.body.dataset.phase = ph === 'night' || ph === 'day' ? ph : 'other';
+    keepAwake(wantAwake());
+    return;
+  }
+  nav.style.display = '';
   let screen;
   if (app.tab === 'game') {
     const byPhase = {
@@ -128,7 +157,8 @@ function render() {
   }, h('span', { class: 'tab-icon' }, t.icon), h('span', {}, t.label))));
 
   document.body.dataset.phase = app.tab === 'game' ? g.phase : 'other';
-  keepAwake(['night', 'dawn', 'day'].includes(g.phase));
+  keepAwake(wantAwake());
+  net.pushHost();
 }
 
 // Barra in alto nelle schermate di partita: fase + riepilogo segreto per il narratore.
@@ -191,10 +221,30 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
 
 document.addEventListener('visibilitychange', () => {
   // Il blocco dello schermo si perde quando l'app va in background.
-  if (document.visibilityState === 'visible') keepAwake(['night', 'dawn', 'day'].includes(app.game.phase));
+  if (document.visibilityState === 'visible') keepAwake(wantAwake());
 });
 
 // Il primo tocco sblocca l'audio su iOS.
 document.addEventListener('pointerdown', () => audio.unlock(), { once: true, capture: true });
 
+// Rete: l'host legge la partita corrente; i cambi di lobby/connessione ridisegnano lo schermo.
+net.setGameProvider(() => app.game);
+net.subscribe(() => {
+  if (app.mode === 'citizen') render();
+  else if (app.mode === 'narrator') {
+    mergeLobbyNames();
+    if (app.game.phase === 'reveal') render();
+  }
+});
+
+// I giocatori che entrano nella lobby finiscono nella lista dei nomi della partita.
+export function mergeLobbyNames() {
+  const names = load('players', []);
+  let changed = false;
+  for (const m of net.hostInfo().members) if (!names.includes(m.name)) { names.push(m.name); changed = true; }
+  if (changed) save('players', names);
+}
+
+if (app.mode === 'narrator' && load('lobbyCode', null)) net.startHost().catch(() => {});
+if (app.mode === 'citizen') net.resumeSession();
 render();
