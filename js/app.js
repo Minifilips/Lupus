@@ -7,6 +7,7 @@ import { renderReveal } from './screens/reveal.js';
 import { renderNight } from './screens/night.js';
 import { renderDawn, renderDay, renderOver } from './screens/day.js';
 import { renderSoundbar } from './screens/soundbar.js';
+import { renderMusic } from './screens/music.js';
 import { renderRoles } from './screens/roles-info.js';
 import { renderSettings } from './screens/settings.js';
 
@@ -16,6 +17,7 @@ audio.setVolume(settings().volume);
 const TABS = [
   { id: 'game', label: 'Partita', icon: '🌕' },
   { id: 'sounds', label: 'Soundbar', icon: '🔊' },
+  { id: 'music', label: 'Musica', icon: '🎵' },
   { id: 'roles', label: 'Ruoli', icon: '🎭' },
   { id: 'settings', label: 'Opzioni', icon: '⚙️' },
 ];
@@ -85,6 +87,7 @@ function render() {
     };
     screen = (byPhase[g.phase] || renderSetup)(app);
   } else if (app.tab === 'sounds') screen = renderSoundbar(app);
+  else if (app.tab === 'music') screen = renderMusic(app);
   else if (app.tab === 'roles') screen = renderRoles(app);
   else screen = renderSettings(app);
   add(main, screen);

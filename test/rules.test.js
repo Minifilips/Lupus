@@ -93,3 +93,25 @@ test('composizione consigliata somma ai giocatori', () => {
   assert.equal(mythomaniacRole('lupo'), 'lupo');
   assert.equal(mythomaniacRole('guardia'), 'contadino');
 });
+
+test('playlist: ogni voce ha un titolo e link di ricerca ben formati', async () => {
+  const { GROUPS, queryOf, ytUrl, spotifyUrl } = await import('../js/playlist.js');
+  const ids = new Set();
+  for (const g of GROUPS) {
+    for (const sec of g.sections) {
+      assert.ok(!ids.has(sec.id), `id duplicato ${sec.id}`);
+      ids.add(sec.id);
+      assert.ok(sec.songs.length > 0);
+      for (const song of sec.songs) {
+        assert.ok(song.title, 'titolo mancante');
+        assert.ok(song.fx ? song.query : song.artist, `autore/query mancante: ${song.title}`);
+        const q = queryOf(song);
+        assert.match(ytUrl(q), /^https:\/\/www\.youtube\.com\/results\?search_query=[^\s&]+$/);
+        assert.match(spotifyUrl(q), /^https:\/\/open\.spotify\.com\/search\/[^\s/]+$/);
+      }
+    }
+  }
+  const { ROLES } = await import('../js/roles.js');
+  const covered = new Set(GROUPS.find((g) => g.id === 'roles').sections.map((x) => x.id));
+  for (const r of ROLES) assert.ok(covered.has(r.id), `ruolo senza canzoni: ${r.id}`);
+});

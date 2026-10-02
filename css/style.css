@@ -321,3 +321,19 @@ ol { padding-left: 20px; margin: 4px 0; }
 .tab-icon { font-size: 24px; filter: grayscale(.8); opacity: .7; }
 .tab.active { color: var(--text); }
 .tab.active .tab-icon { filter: none; opacity: 1; }
+
+/* ---------- Musica ---------- */
+.seg { display: flex; background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 3px; gap: 3px; }
+.seg-btn { flex: 1; border: 0; background: transparent; border-radius: 9px; padding: 9px 0; font-weight: 600; color: var(--muted); cursor: pointer; }
+.seg-btn.on { background: var(--accent); color: #fff; }
+.song-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #ffffff10; }
+.song-row:last-child { border-bottom: 0; }
+.song-title { font-weight: 600; }
+.link-btn {
+  flex: none; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600;
+  border: 1px solid var(--line); background: var(--bg2); border-radius: 10px; padding: 8px 10px; white-space: nowrap;
+}
+.link-btn.yt { border-color: #7a1620; background: #2a1218; }
+.link-btn.sp { border-color: #1d5c34; background: #11261a; }
+.link-btn:active { transform: scale(.95); }
+@media (max-width: 380px) { .link-btn { padding: 8px 7px; font-size: 12px; } }

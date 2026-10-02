@@ -9,6 +9,7 @@ Web app da installare sull'iPhone per fare da master a **Lupus** (Lupus in Tabul
   - Atmosfere in loop: grilli, vento, pioggia, tensione, battito, branco di lupi.
   - Tutti i suoni sono generati dall'app, quindi niente file e niente copyright.
   - Puoi caricare i tuoi mp3 e far leggere frasi alla voce italiana del telefono.
+- **🎵 Musica**: per ogni momento della partita e per ogni ruolo, una lista di brani con link a YouTube e Spotify, più una lista di effetti sonori. Sono link di ricerca, non file: nessun mp3 protetto da copyright nel repo.
 - **🎭 17 personaggi**: Lupo, Contadino, Veggente, Puttana, Guardia, Medium, Strega, Cacciatore, Cupido, Massone, Gufo, Criceto mannaro, Indemoniato, Mitomane, Bambina, Scemo del villaggio, Sindaco. In più puoi creare **ruoli personalizzati**.
 - **🎲 Distribuzione dei ruoli**
   - Il bottone "Bilancia" propone una composizione adatta al numero di giocatori.
