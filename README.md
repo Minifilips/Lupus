@@ -5,19 +5,20 @@ Web app da installare sull'iPhone per fare da master a **Lupus** (Lupus in Tabul
 ## Cosa fa
 
 - **🔊 Soundbar**
-  - Effetti: ululato, gufo, campana, morte, urlo, porta, magia, fantasma, amore, scudo, alba.
-  - Atmosfere in loop: grilli, vento, pioggia, tensione, battito, branco di lupi.
-  - Tutti i suoni sono generati dall'app, quindi niente file e niente copyright.
-  - Puoi caricare i tuoi mp3 e far leggere frasi alla voce italiana del telefono.
-- **🎵 Musica**: per ogni momento della partita e per ogni ruolo, una lista di brani con link a YouTube e Spotify, più una lista di effetti sonori. Sono link di ricerca, non file: nessun mp3 protetto da copyright nel repo.
-- **🎭 17 personaggi**: Lupo, Contadino, Veggente, Puttana, Guardia, Medium, Strega, Cacciatore, Cupido, Massone, Gufo, Criceto mannaro, Indemoniato, Mitomane, Bambina, Scemo del villaggio, Sindaco. In più puoi creare **ruoli personalizzati**.
+  - Atmosfere in loop: grilli e battito cardiaco (sintetizzati dall'app, funzionano offline).
+  - Puoi caricare i tuoi mp3 (ululato, canzoni…): si scelgono tutti insieme e restano sul telefono.
+  - Frasi del narratore lette dalla voce italiana del telefono.
+- **🎵 Musica**: per ogni momento della partita e per ogni ruolo, una lista di brani con link a YouTube e Spotify, più una lista di effetti sonori. Sono link di ricerca, non file: nessun mp3 protetto da copyright nel repo. Le scelte già fatte hanno ✅.
+- **🎭 Personaggi**
+  - Quelli che giocate di solito: Lupo, Contadino, Veggente, Puttana (dorme da qualcuno e lo salva dai lupi), Prete kamikaze (una sola volta può lanciarsi su un giocatore: se è un lupo muore il lupo, altrimenti muore lui) e Folle (scemo del villaggio).
+  - Altri ruoli già pronti: Cortigiana, Medium, Strega, Cacciatore, Cupido, Massone, Gufo, Criceto mannaro, Indemoniato, Mitomane, Bambina, Sindaco. Puoi anche crearne di tuoi.
 - **🎲 Distribuzione dei ruoli**
   - Il bottone "Bilancia" propone una composizione adatta al numero di giocatori.
   - Il telefono passa di mano in mano e ognuno gira la propria carta.
 - **🌙 Notte guidata**
-  - L'app chiama i ruoli nell'ordine giusto, con voce e suono, e tu tocchi le scelte di ogni ruolo.
+  - L'app chiama i ruoli nell'ordine giusto con la voce, e tu tocchi le scelte di ogni ruolo.
   - Chiama anche i ruoli morti (si può disattivare), così nessuno capisce chi è uscito.
-  - All'alba calcola da sola chi è morto: guardia, puttana, criceto, strega, innamorati, mitomane, cacciatore.
+  - All'alba calcola da sola chi è morto: puttana, prete, cortigiana, criceto, strega, innamorati, mitomane, cacciatore.
 - **☀️ Giorno**: timer della discussione con bip finali, conteggio dei voti, rogo e controllo automatico della vittoria.
 - **👁 Master**: riepilogo segreto dei ruoli, correzione manuale di chi è vivo o morto e cronaca della partita.
 
@@ -25,10 +26,12 @@ Web app da installare sull'iPhone per fare da master a **Lupus** (Lupus in Tabul
 
 | Situazione | Esito |
 |---|---|
-| La guardia protegge la vittima dei lupi | Nessuno muore |
-| I lupi attaccano la puttana mentre è da qualcun altro | La puttana si salva |
-| La puttana è a casa della vittima dei lupi | Muoiono entrambe |
-| La puttana va a casa di un lupo | La puttana muore |
+| La puttana dorme da chi i lupi attaccano | Nessuno muore |
+| Il prete si lancia su un lupo | Il lupo muore, il prete si salva |
+| Il prete si lancia su chiunque altro | Il prete muore |
+| I lupi attaccano la cortigiana mentre è da qualcun altro | La cortigiana si salva |
+| La cortigiana è a casa della vittima dei lupi | Muoiono entrambe |
+| La cortigiana va a casa di un lupo | La cortigiana muore |
 | I lupi attaccano il criceto | Non muore |
 | La veggente scruta il criceto | Il criceto muore |
 | Muore uno degli innamorati | Muore anche l'altro |
@@ -57,7 +60,7 @@ npm test    # test delle regole (node --test)
 
 - `js/roles.js`: i personaggi e il bilanciamento automatico
 - `js/rules.js`: la logica pura (sequenza della notte, risoluzione dell'alba, vittoria)
-- `js/audio.js`: i suoni sintetizzati con Web Audio
+- `js/audio.js`: grilli, battito e bip del timer con Web Audio, più la riproduzione degli mp3 caricati
 - `js/screens/`: le schermate dell'app
 - `sw.js`: la cache offline. Quando rilasci modifiche, aumenta `VERSION`.
 - `scripts/make-icons.cjs`: rigenera le icone da `scripts/icon.svg` (serve Playwright)

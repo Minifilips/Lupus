@@ -35,7 +35,7 @@ export function newGame(players = []) {
     step: -1,
     actions: {},
     witch: { life: true, death: true },
-    lastGuard: null,
+    priestUsed: false,
     lastLynched: null,
     owlMark: null,
     dawn: null,
@@ -47,6 +47,34 @@ export function newGame(players = []) {
     winner: null,
   };
 }
+
+// Migrazione dei ruoli rinominati: la vecchia 'puttana' (che visita) è la 'cortigiana',
+// la vecchia 'guardia' (che protegge) è la 'puttana'. Si applica una sola volta.
+const RENAMED = { puttana: 'cortigiana', guardia: 'puttana' };
+const RENAMED_ACTIONS = { harlot: 'visit', guard: 'protect' };
+
+function migrate() {
+  if (load('rolesVersion', 1) >= 2) return;
+  const comp = load('composition', null);
+  if (comp) {
+    const out = {};
+    for (const [k, v] of Object.entries(comp)) out[RENAMED[k] || k] = v;
+    save('composition', out);
+  }
+  const game = load('game', null);
+  if (game?.players) {
+    game.players.forEach((p) => { p.role = RENAMED[p.role] || p.role; });
+    (game.steps || []).forEach((st) => { st.roleId = RENAMED[st.roleId] || st.roleId; });
+    const acts = {};
+    for (const [k, v] of Object.entries(game.actions || {})) acts[RENAMED_ACTIONS[k] || k] = v;
+    game.actions = acts;
+    delete game.lastGuard;
+    game.priestUsed = !!game.priestUsed;
+    save('game', game);
+  }
+  save('rolesVersion', 2);
+}
+migrate();
 
 export const app = {
   game: load('game', null) || newGame(),

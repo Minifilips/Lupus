@@ -74,6 +74,8 @@ export function renderSoundbar() {
         }, h('span', { class: 'sound-emoji' }, editing ? '🗑️' : '🎵'), h('span', {}, s.name))),
         h('button', { class: 'sound add', onclick: () => fileInput.click() },
           h('span', { class: 'sound-emoji' }, '➕'), h('span', {}, 'Aggiungi mp3'))),
+      userSounds.length ? null : h('p', { class: 'muted small' },
+        'Qui metti i tuoi mp3 (ululato, canzoni…): puoi sceglierne tanti insieme e restano sul telefono, anche offline.'),
       fileInput);
   }
   drawUser();
@@ -93,16 +95,6 @@ export function renderSoundbar() {
         }),
         h('span', {}, '🔊'),
         h('button', { class: 'btn danger small', onclick: () => audio.stopAll() }, '⏹ Stop'))),
-    h('div', { class: 'section-title' }, '💥 Effetti'),
-    h('div', { class: 'sound-grid' }, audio.SOUNDS.map((s) => h('button', {
-      class: 'sound',
-      onclick: (e) => {
-        audio.play(s.id);
-        const b = e.currentTarget;
-        b.classList.add('flash');
-        setTimeout(() => b.classList.remove('flash'), 400);
-      },
-    }, h('span', { class: 'sound-emoji' }, s.emoji), h('span', {}, s.name)))),
     h('div', { class: 'section-title' }, '🌙 Atmosfera (in loop)'),
     loopsBox,
     userBox,

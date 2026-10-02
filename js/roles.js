@@ -1,15 +1,15 @@
 // Definizione dei personaggi.
 // team: 'villaggio' | 'lupi' | 'criceto' | 'neutro'
 // night: null se il ruolo non si sveglia, altrimenti
-//   { order, when: 'first' | 'every' | 'notFirst', action, sound }
+//   { order, when: 'first' | 'every' | 'notFirst', action }
 // action: 'kill' | 'protect' | 'visit' | 'see' | 'medium' | 'witch'
-//         | 'lovers' | 'masons' | 'owl' | 'copy' | 'custom' | 'none'
+//         | 'lovers' | 'masons' | 'owl' | 'copy' | 'priest' | 'custom' | 'none'
 
 export const ROLES = [
   {
     id: 'lupo', name: 'Lupo', plural: 'Lupi', emoji: '🐺', team: 'lupi',
     desc: 'Ogni notte i lupi si svegliano insieme e scelgono una vittima da sbranare. Di giorno fingono di essere innocui contadini.',
-    night: { order: 50, when: 'every', action: 'kill', sound: 'howl' },
+    night: { order: 50, when: 'every', action: 'kill' },
     call: 'Lupi, aprite gli occhi. Scegliete la vostra vittima.',
     close: 'Lupi, chiudete gli occhi.',
   },
@@ -21,35 +21,48 @@ export const ROLES = [
   {
     id: 'veggente', name: 'Veggente', emoji: '🔮', team: 'villaggio',
     desc: 'Ogni notte indica un giocatore e il narratore le rivela se è un lupo oppure no. Se scruta il criceto mannaro, il criceto muore.',
-    night: { order: 60, when: 'every', action: 'see', sound: 'magic' },
+    night: { order: 60, when: 'every', action: 'see' },
     call: 'Veggente, apri gli occhi. Indica chi vuoi scrutare.',
     close: 'Veggente, chiudi gli occhi.',
   },
   {
     id: 'puttana', name: 'Puttana', emoji: '💋', team: 'villaggio',
-    desc: 'Ogni notte va a casa di qualcuno. Se i lupi attaccano lei, non è in casa e si salva. Se va dalla vittima dei lupi muore con lei, e muore anche se va a casa di un lupo.',
-    night: { order: 20, when: 'every', action: 'visit', sound: 'door' },
-    call: 'Puttana, apri gli occhi. Indica da chi vuoi passare la notte.',
+    desc: 'Ogni notte va a dormire da qualcuno: se i lupi lo attaccano, lo salva. Non fa altro.',
+    night: { order: 30, when: 'every', action: 'protect' },
+    call: 'Puttana, apri gli occhi. Indica con chi dormi stanotte.',
     close: 'Puttana, chiudi gli occhi.',
   },
   {
-    id: 'guardia', name: 'Guardia', emoji: '🛡️', team: 'villaggio',
-    desc: 'Ogni notte protegge un giocatore dall’attacco dei lupi. Non può proteggere sé stessa né la stessa persona due notti di fila.',
-    night: { order: 30, when: 'every', action: 'protect', sound: 'shield' },
-    call: 'Guardia, apri gli occhi. Indica chi vuoi proteggere.',
-    close: 'Guardia, chiudi gli occhi.',
+    id: 'prete', name: 'Prete', emoji: '⛪', team: 'villaggio',
+    desc: 'Il kamikaze. Ogni notte si sveglia e il narratore gli chiede se vuole lanciarsi su qualcuno, ma può farlo una sola volta in tutta la partita. Se si lancia su un lupo, il lupo muore e il prete si salva. Se si lancia su chiunque altro, il prete muore.',
+    night: { order: 55, when: 'every', action: 'priest' },
+    call: 'Prete, apri gli occhi. Vuoi lanciarti su qualcuno?',
+    close: 'Prete, chiudi gli occhi.',
+  },
+  {
+    id: 'scemo', name: 'Folle', emoji: '🤪', team: 'neutro',
+    desc: 'Il folle (o scemo del villaggio) gioca da solo e vince se riesce a farsi mandare al rogo dal villaggio.',
+    night: null,
+  },
+  // Altri ruoli (non usati nella partita di base)
+  {
+    id: 'cortigiana', name: 'Cortigiana', emoji: '🌹', team: 'villaggio',
+    desc: 'Ogni notte va a casa di qualcuno. Se i lupi attaccano lei, non è in casa e si salva. Se va dalla vittima dei lupi muore con lei, e muore anche se va a casa di un lupo.',
+    night: { order: 20, when: 'every', action: 'visit' },
+    call: 'Cortigiana, apri gli occhi. Indica da chi vuoi passare la notte.',
+    close: 'Cortigiana, chiudi gli occhi.',
   },
   {
     id: 'medium', name: 'Medium', emoji: '🕯️', team: 'villaggio',
     desc: 'Ogni notte (dalla seconda) il narratore le dice se l’ultimo giocatore eliminato al rogo era un lupo.',
-    night: { order: 65, when: 'notFirst', action: 'medium', sound: 'ghost' },
+    night: { order: 65, when: 'notFirst', action: 'medium' },
     call: 'Medium, apri gli occhi.',
     close: 'Medium, chiudi gli occhi.',
   },
   {
     id: 'strega', name: 'Strega', emoji: '🧪', team: 'villaggio',
     desc: 'Ha due pozioni da usare una volta sola: una di vita per salvare la vittima dei lupi, una di morte per uccidere chi vuole.',
-    night: { order: 70, when: 'every', action: 'witch', sound: 'magic' },
+    night: { order: 70, when: 'every', action: 'witch' },
     call: 'Strega, apri gli occhi. Questa è la vittima dei lupi. Vuoi usare una pozione?',
     close: 'Strega, chiudi gli occhi.',
   },
@@ -61,21 +74,21 @@ export const ROLES = [
   {
     id: 'cupido', name: 'Cupido', emoji: '💘', team: 'villaggio',
     desc: 'La prima notte fa innamorare due giocatori. Se uno degli amanti muore, l’altro muore di dolore.',
-    night: { order: 5, when: 'first', action: 'lovers', sound: 'love' },
+    night: { order: 5, when: 'first', action: 'lovers' },
     call: 'Cupido, apri gli occhi. Indica i due innamorati.',
     close: 'Cupido, chiudi gli occhi.',
   },
   {
     id: 'massone', name: 'Massone', plural: 'Massoni', emoji: '🤝', team: 'villaggio',
     desc: 'La prima notte i massoni si svegliano e si riconoscono: sanno per certo di potersi fidare l’uno dell’altro.',
-    night: { order: 10, when: 'first', action: 'masons', sound: 'bell' },
+    night: { order: 10, when: 'first', action: 'masons' },
     call: 'Massoni, aprite gli occhi e riconoscetevi.',
     close: 'Massoni, chiudete gli occhi.',
   },
   {
     id: 'gufo', name: 'Gufo', emoji: '🦉', team: 'lupi',
     desc: 'Tifa per i lupi. Ogni notte indica un giocatore che il giorno dopo finisce automaticamente in ballottaggio.',
-    night: { order: 75, when: 'every', action: 'owl', sound: 'owl' },
+    night: { order: 75, when: 'every', action: 'owl' },
     call: 'Gufo, apri gli occhi. Indica chi mandare in ballottaggio.',
     close: 'Gufo, chiudi gli occhi.',
   },
@@ -92,18 +105,13 @@ export const ROLES = [
   {
     id: 'mitomane', name: 'Mitomane', emoji: '🎭', team: 'villaggio',
     desc: 'La prima notte indica un giocatore: se è un lupo diventa lupo, se è la veggente diventa veggente, altrimenti resta un semplice contadino.',
-    night: { order: 8, when: 'first', action: 'copy', sound: 'magic' },
+    night: { order: 8, when: 'first', action: 'copy' },
     call: 'Mitomane, apri gli occhi. Indica chi vuoi imitare.',
     close: 'Mitomane, chiudi gli occhi.',
   },
   {
     id: 'bambina', name: 'Bambina', emoji: '👧', team: 'villaggio',
     desc: 'Mentre i lupi sono svegli può sbirciare di nascosto. Se la beccano, però, i lupi la notano…',
-    night: null,
-  },
-  {
-    id: 'scemo', name: 'Scemo del villaggio', emoji: '🤪', team: 'neutro',
-    desc: 'Gioca da solo e vince se riesce a farsi mandare al rogo dal villaggio.',
     night: null,
   },
   {
@@ -126,7 +134,7 @@ export function setCustomRoles(list) {
   customRoles = (list || []).map((r) => ({
     ...r,
     custom: true,
-    night: r.wakes ? { order: Number(r.order) || 80, when: r.when || 'every', action: 'custom', sound: 'magic', target: !!r.needsTarget } : null,
+    night: r.wakes ? { order: Number(r.order) || 80, when: r.when || 'every', action: 'custom', target: !!r.needsTarget } : null,
     call: `${r.name}, apri gli occhi.`,
     close: `${r.name}, chiudi gli occhi.`,
   }));
@@ -145,20 +153,15 @@ export function looksLikeWolf(roleId) {
   return roleId === 'lupo';
 }
 
-// Composizione consigliata per N giocatori.
+// Composizione consigliata per N giocatori: solo i ruoli che usate di solito
+// (lupi, veggente, puttana, prete, folle) e il resto contadini.
 export function suggestComposition(n) {
-  const c = {};
   if (n < 4) return { lupo: 1, contadino: Math.max(0, n - 1) };
-  c.lupo = n < 8 ? 1 : Math.floor(n / 4);
+  const c = { lupo: n < 8 ? 1 : Math.floor(n / 4) };
   if (n >= 5) c.veggente = 1;
-  if (n >= 7) c.guardia = 1;
-  if (n >= 8) c.puttana = 1;
-  if (n >= 9) c.medium = 1;
-  if (n >= 10) c.cacciatore = 1;
-  if (n >= 11) c.indemoniato = 1;
-  if (n >= 12) c.massone = 2;
-  if (n >= 13) c.criceto = 1;
-  if (n >= 15) c.gufo = 1;
+  if (n >= 6) c.puttana = 1;
+  if (n >= 7) c.prete = 1;
+  if (n >= 8) c.scemo = 1;
   const used = Object.values(c).reduce((a, b) => a + b, 0);
   c.contadino = n - used;
   return c;

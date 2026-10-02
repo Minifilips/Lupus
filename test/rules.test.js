@@ -11,34 +11,34 @@ test('i lupi uccidono la vittima', () => {
   assert.deepEqual(ids(resolveNight(ps, { wolves: 1 })), [1]);
 });
 
-test('la guardia salva la vittima', () => {
-  const ps = make(['lupo', 'contadino', 'guardia']);
-  assert.deepEqual(ids(resolveNight(ps, { wolves: 1, guard: 1 })), []);
+test('la puttana (che dorme con qualcuno) salva la vittima', () => {
+  const ps = make(['lupo', 'contadino', 'puttana']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 1, protect: 1 })), []);
 });
 
-test('puttana fuori casa sopravvive se attaccata', () => {
-  const ps = make(['lupo', 'puttana', 'contadino']);
-  assert.deepEqual(ids(resolveNight(ps, { wolves: 1, harlot: 2 })), []);
+test('cortigiana fuori casa sopravvive se attaccata', () => {
+  const ps = make(['lupo', 'cortigiana', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 1, visit: 2 })), []);
 });
 
-test('puttana a casa sua (nessuna visita) muore se attaccata', () => {
-  const ps = make(['lupo', 'puttana', 'contadino']);
-  assert.deepEqual(ids(resolveNight(ps, { wolves: 1, harlot: null })), [1]);
+test('cortigiana a casa sua (nessuna visita) muore se attaccata', () => {
+  const ps = make(['lupo', 'cortigiana', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 1, visit: null })), [1]);
 });
 
-test('puttana muore con la vittima dei lupi', () => {
-  const ps = make(['lupo', 'puttana', 'contadino']);
-  assert.deepEqual(ids(resolveNight(ps, { wolves: 2, harlot: 2 })), [1, 2]);
+test('cortigiana muore con la vittima dei lupi', () => {
+  const ps = make(['lupo', 'cortigiana', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 2, visit: 2 })), [1, 2]);
 });
 
-test('puttana salva se la guardia protegge la persona visitata', () => {
-  const ps = make(['lupo', 'puttana', 'contadino', 'guardia']);
-  assert.deepEqual(ids(resolveNight(ps, { wolves: 2, harlot: 2, guard: 2 })), []);
+test('cortigiana salva se la puttana protegge la persona visitata', () => {
+  const ps = make(['lupo', 'cortigiana', 'contadino', 'puttana']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 2, visit: 2, protect: 2 })), []);
 });
 
-test('puttana muore se va da un lupo', () => {
-  const ps = make(['lupo', 'puttana', 'contadino']);
-  assert.deepEqual(ids(resolveNight(ps, { wolves: 2, harlot: 0 })), [1, 2]);
+test('cortigiana muore se va da un lupo', () => {
+  const ps = make(['lupo', 'cortigiana', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 2, visit: 0 })), [1, 2]);
 });
 
 test('criceto immune ai lupi, muore se scrutato', () => {
@@ -72,12 +72,12 @@ test('condizioni di vittoria', () => {
 });
 
 test('sequenza notturna ordinata e prima notte', () => {
-  const ps = make(['lupo', 'veggente', 'puttana', 'cupido', 'medium']);
+  const ps = make(['lupo', 'veggente', 'cortigiana', 'cupido', 'medium']);
   const n1 = buildNightSteps(ps, 1).map((s) => s.roleId);
-  assert.deepEqual(n1, ['cupido', 'puttana', 'lupo', 'veggente']);
+  assert.deepEqual(n1, ['cupido', 'cortigiana', 'lupo', 'veggente']);
   ps[1].alive = false;
   const n2 = buildNightSteps(ps, 2, false).map((s) => s.roleId);
-  assert.deepEqual(n2, ['puttana', 'lupo', 'medium']);
+  assert.deepEqual(n2, ['cortigiana', 'lupo', 'medium']);
   const n2b = buildNightSteps(ps, 2, true);
   assert.equal(n2b.find((s) => s.roleId === 'veggente').dead, true);
 });
@@ -91,11 +91,55 @@ test('composizione consigliata somma ai giocatori', () => {
   const ps = assignRoles(['a', 'b', 'c', 'd'], { lupo: 1, contadino: 3 });
   assert.equal(ps.filter((p) => p.role === 'lupo').length, 1);
   assert.equal(mythomaniacRole('lupo'), 'lupo');
-  assert.equal(mythomaniacRole('guardia'), 'contadino');
+  assert.equal(mythomaniacRole('puttana'), 'contadino');
 });
 
-test('playlist: ogni voce ha un titolo e link di ricerca ben formati', async () => {
-  const { GROUPS, queryOf, ytUrl, spotifyUrl } = await import('../js/playlist.js');
+test('prete: si lancia su un lupo, il lupo muore e lui si salva', () => {
+  const ps = make(['lupo', 'prete', 'contadino']);
+  const r = resolveNight(ps, { priest: 0 });
+  assert.deepEqual(ids(r), [0]);
+  assert.equal(r.deaths[0].cause, 'Placcato dal prete P1');
+});
+
+test('prete: si lancia su un non-lupo e muore lui', () => {
+  const ps = make(['lupo', 'prete', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { priest: 2 })), [1]);
+});
+
+test('prete: senza lancio non succede niente', () => {
+  const ps = make(['lupo', 'prete', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { priest: null })), []);
+});
+
+test('prete: placca un lupo mentre i lupi attaccano un altro, muoiono entrambi', () => {
+  const ps = make(['lupo', 'lupo', 'prete', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 3, priest: 0 })), [0, 3]);
+});
+
+test('prete: la puttana salva la vittima dei lupi ma il lancio sul lupo resta valido', () => {
+  const ps = make(['lupo', 'prete', 'puttana', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 3, protect: 3, priest: 0 })), [0]);
+});
+
+test('il prete si sveglia ogni notte nella sequenza, dopo i lupi e prima della veggente', () => {
+  const ps = make(['lupo', 'veggente', 'puttana', 'prete', 'scemo', 'contadino']);
+  assert.deepEqual(buildNightSteps(ps, 2).map((st) => st.roleId), ['puttana', 'lupo', 'prete', 'veggente']);
+});
+
+test('il vostro gioco: composizione consigliata solo con lupi, veggente, puttana, prete, folle', () => {
+  const allowed = new Set(['lupo', 'veggente', 'puttana', 'prete', 'scemo', 'contadino']);
+  for (let n = 4; n <= 24; n++) for (const id of Object.keys(suggestComposition(n))) assert.ok(allowed.has(id), `${id} a ${n}`);
+  assert.deepEqual(suggestComposition(8), { lupo: 2, veggente: 1, puttana: 1, prete: 1, scemo: 1, contadino: 2 });
+});
+
+test('la puttana non ha più vincoli: può proteggere chiunque, anche due notti di fila', () => {
+  const ps = make(['lupo', 'puttana', 'contadino']);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 2, protect: 2 })), []);
+  assert.deepEqual(ids(resolveNight(ps, { wolves: 2, protect: 2 })), []);
+});
+
+test('playlist: ogni voce ha un titolo e link ben formati', async () => {
+  const { GROUPS, linksOf } = await import('../js/playlist.js');
   const ids = new Set();
   for (const g of GROUPS) {
     for (const sec of g.sections) {
@@ -104,14 +148,18 @@ test('playlist: ogni voce ha un titolo e link di ricerca ben formati', async () 
       assert.ok(sec.songs.length > 0);
       for (const song of sec.songs) {
         assert.ok(song.title, 'titolo mancante');
-        assert.ok(song.fx ? song.query : song.artist, `autore/query mancante: ${song.title}`);
-        const q = queryOf(song);
-        assert.match(ytUrl(q), /^https:\/\/www\.youtube\.com\/results\?search_query=[^\s&]+$/);
-        assert.match(spotifyUrl(q), /^https:\/\/open\.spotify\.com\/search\/[^\s/]+$/);
+        assert.ok(song.fx || song.direct || song.artist, `autore mancante: ${song.title}`);
+        const links = linksOf(song);
+        assert.ok(links.length >= 1);
+        for (const l of links) assert.match(l.url, /^https:\/\/(www\.youtube\.com|open\.spotify\.com)\/[^\s]+$/);
+        assert.ok(links.every((l) => !/[()]/.test(l.url) || song.direct), `parentesi nel link: ${song.title}`);
       }
     }
   }
+  // Il tuo pezzo parte dal minuto 3:40 (220 secondi).
+  const clip = GROUPS[0].sections.find((x) => x.id === 'death').songs.find((x) => x.direct);
+  assert.match(clip.url, /watch\?v=J1gH_cjdb60&t=220s$/);
   const { ROLES } = await import('../js/roles.js');
-  const covered = new Set(GROUPS.find((g) => g.id === 'roles').sections.map((x) => x.id));
+  const covered = new Set(GROUPS.filter((g) => g.id === 'roles' || g.id === 'others').flatMap((g) => g.sections.map((x) => x.id)));
   for (const r of ROLES) assert.ok(covered.has(r.id), `ruolo senza canzoni: ${r.id}`);
 });

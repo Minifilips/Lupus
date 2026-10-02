@@ -1,17 +1,16 @@
 import { h, fill } from '../ui.js';
 import { load, save } from '../storage.js';
-import { GROUPS, queryOf, ytUrl, spotifyUrl } from '../playlist.js';
+import { GROUPS, linksOf } from '../playlist.js';
 
-const link = (cls, href, label) => h('a', { class: `link-btn ${cls}`, href, target: '_blank', rel: 'noopener noreferrer' }, label);
+const link = (l) => h('a', { class: `link-btn ${l.kind}`, href: l.url, target: '_blank', rel: 'noopener noreferrer' }, l.label);
 
 function songRow(song) {
-  const q = queryOf(song);
   return h('div', { class: 'song-row' },
     h('div', { class: 'grow' },
-      h('div', { class: 'song-title' }, song.title, song.fun ? ' 😂' : ''),
-      song.artist ? h('div', { class: 'small muted' }, song.artist) : null),
-    link('yt', ytUrl(q), '▶ YouTube'),
-    song.fx ? null : link('sp', spotifyUrl(q), '🎧 Spotify'));
+      h('div', { class: 'song-title' }, song.chosen ? '✅ ' : '', song.title, song.fun ? ' 😂' : ''),
+      song.artist ? h('div', { class: 'small muted' }, song.artist) : null,
+      song.note ? h('div', { class: 'small muted' }, song.note) : null),
+    linksOf(song).map(link));
 }
 
 export function renderMusic() {
@@ -35,7 +34,7 @@ export function renderMusic() {
 
   fill(root,
     h('header', { class: 'game-header' }, h('h1', {}, '🎵 Musica')),
-    h('p', { class: 'muted small' }, 'Tocca un pulsante: si apre YouTube o Spotify con la ricerca già pronta. Il primo risultato è quasi sempre quello giusto.'),
+    h('p', { class: 'muted small' }, 'Tocca un pulsante: si apre YouTube o Spotify con la ricerca già pronta. ✅ = scelta già fatta.'),
     seg,
     body);
   return root;

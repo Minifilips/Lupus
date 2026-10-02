@@ -27,7 +27,6 @@ function hunterUI(app, title) {
     playerPicker(g.players.filter((p) => p.alive), {
       onPick: async (p) => {
         if (!(await confirmBox(`Il cacciatore spara a ${p.name}?`, '🏹 Spara'))) return;
-        audio.play('gong');
         const res = applyDeaths(g.players, [{ id: p.id, cause: `Colpito dal cacciatore ${nameOf(g, hunterId)}` }]);
         app.update((game) => {
           game.pendingHunters = [...game.pendingHunters.slice(1), ...res.hunters];
@@ -58,7 +57,6 @@ function winnerButton(app) {
       class: 'btn big primary',
       onclick: () => {
         speak(`${w.title} ${w.text}`);
-        audio.play('bell');
         app.update((game) => { game.phase = 'over'; app.log('Fine', [w.title]); });
       },
     }, '🏆 Mostra il finale'));
@@ -73,7 +71,6 @@ export function renderDawn(app) {
       ? `Il villaggio si sveglia. Stanotte ${names.length > 1 ? 'sono morti' : 'è morto'} ${names.join(' e ')}.`
       : 'Il villaggio si sveglia. Stanotte non è morto nessuno!';
     speak(txt);
-    if (names.length) audio.play('gong');
   };
 
   return h('div', { class: 'screen dawn' },
@@ -255,7 +252,6 @@ async function lynch(app, id) {
     return;
   }
   const p = g.players.find((x) => x.id === id);
-  audio.play('gong');
   speak(`${p.name} è stato mandato al rogo.`);
   app.update((game) => {
     game.lastLynched = id;

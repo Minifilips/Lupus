@@ -1,8 +1,8 @@
 # 🐺 Playlist per Lupus
 
-Tocca **YouTube** o **Spotify**: si apre la ricerca già pronta (di solito il primo risultato è quello giusto). 😂 = scelta comica.
+Tocca **YouTube** o **Spotify**: si apre la ricerca già pronta (di solito il primo risultato è quello giusto). ✅ = scelta già fatta · 😂 = scelta comica.
 
-**Indice:** [🌙 Momenti della partita](#moments) · [🎭 Ruoli](#roles) · [🔊 Effetti sonori](#effects)
+**Indice:** [🌙 Momenti della partita](#moments) · [🎭 I ruoli che giocate](#roles) · [🃏 Altri ruoli (non li usate ancora)](#others) · [🔊 Effetti sonori](#effects)
 
 ---
 
@@ -12,100 +12,62 @@ Tocca **YouTube** o **Spotify**: si apre la ricerca già pronta (di solito il pr
 
 ### 🌙 Il villaggio si addormenta
 
-- **Brahms’ Lullaby** – Brahms  
+- ✅ **Brahms’ Lullaby** – Brahms  
   [▶ YouTube](https://www.youtube.com/results?search_query=Brahms%E2%80%99%20Lullaby%20Brahms) · [🎧 Spotify](https://open.spotify.com/search/Brahms%E2%80%99%20Lullaby%20Brahms)
-- **Mr. Sandman** – The Chordettes 😂  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Mr.%20Sandman%20The%20Chordettes) · [🎧 Spotify](https://open.spotify.com/search/Mr.%20Sandman%20The%20Chordettes)
-- **Eine kleine Nachtmusik** – Mozart 😂  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Eine%20kleine%20Nachtmusik%20Mozart) · [🎧 Spotify](https://open.spotify.com/search/Eine%20kleine%20Nachtmusik%20Mozart)
 
-### 🌌 Notte (sottofondo)
+### 🌌 Notte (sottofondo): tre nuove idee
 
-- **Clair de Lune** – Debussy  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Clair%20de%20Lune%20Debussy) · [🎧 Spotify](https://open.spotify.com/search/Clair%20de%20Lune%20Debussy)
-- **Moonlight Sonata (1° movimento)** – Beethoven  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Moonlight%20Sonata%20%281%C2%B0%20movimento%29%20Beethoven) · [🎧 Spotify](https://open.spotify.com/search/Moonlight%20Sonata%20%281%C2%B0%20movimento%29%20Beethoven)
-- **Nocturne Op. 9 n. 2** – Chopin  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Nocturne%20Op.%209%20n.%202%20Chopin) · [🎧 Spotify](https://open.spotify.com/search/Nocturne%20Op.%209%20n.%202%20Chopin)
+- **Laura Palmer’s Theme (Twin Peaks)** – Angelo Badalamenti  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Laura%20Palmer%E2%80%99s%20Theme%20%28Twin%20Peaks%29%20Angelo%20Badalamenti) · [🎧 Spotify](https://open.spotify.com/search/Laura%20Palmer%E2%80%99s%20Theme%20%28Twin%20Peaks%29%20Angelo%20Badalamenti)
+- **Helvegen** – Wardruna  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Helvegen%20Wardruna) · [🎧 Spotify](https://open.spotify.com/search/Helvegen%20Wardruna)
+- **Profondo Rosso** – Goblin  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Profondo%20Rosso%20Goblin) · [🎧 Spotify](https://open.spotify.com/search/Profondo%20Rosso%20Goblin)
 
 ### 🌅 Mattina / il villaggio si sveglia
 
-- **Concerning Hobbits** – Howard Shore  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Concerning%20Hobbits%20Howard%20Shore) · [🎧 Spotify](https://open.spotify.com/search/Concerning%20Hobbits%20Howard%20Shore)
-- **Morning Mood** – Grieg  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Morning%20Mood%20Grieg) · [🎧 Spotify](https://open.spotify.com/search/Morning%20Mood%20Grieg)
-- **Here Comes the Sun** – The Beatles 😂  
+- ✅ **Here Comes the Sun** – The Beatles  
   [▶ YouTube](https://www.youtube.com/results?search_query=Here%20Comes%20the%20Sun%20The%20Beatles) · [🎧 Spotify](https://open.spotify.com/search/Here%20Comes%20the%20Sun%20The%20Beatles)
+- ✅ **Morning Mood** – Grieg  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Morning%20Mood%20Grieg) · [🎧 Spotify](https://open.spotify.com/search/Morning%20Mood%20Grieg)
 
-### ⚡ Colpo di scena / annuncio dei morti
+### ⚰️ Annuncio dei morti (colpo di scena)
 
-- **O Fortuna (Carmina Burana)** – Carl Orff  
-  [▶ YouTube](https://www.youtube.com/results?search_query=O%20Fortuna%20%28Carmina%20Burana%29%20Carl%20Orff) · [🎧 Spotify](https://open.spotify.com/search/O%20Fortuna%20%28Carmina%20Burana%29%20Carl%20Orff)
-- **Dies Irae (Requiem)** – Verdi  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Dies%20Irae%20%28Requiem%29%20Verdi) · [🎧 Spotify](https://open.spotify.com/search/Dies%20Irae%20%28Requiem%29%20Verdi)
-- **The Murder (Psycho)** – Bernard Herrmann  
-  [▶ YouTube](https://www.youtube.com/results?search_query=The%20Murder%20%28Psycho%29%20Bernard%20Herrmann) · [🎧 Spotify](https://open.spotify.com/search/The%20Murder%20%28Psycho%29%20Bernard%20Herrmann)
-- **Duel of the Fates** – John Williams  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Duel%20of%20the%20Fates%20John%20Williams) · [🎧 Spotify](https://open.spotify.com/search/Duel%20of%20the%20Fates%20John%20Williams)
+- ✅ **Il tuo pezzo, dal minuto 3:40 al 3:55**  
+  _Si apre già al 3:40: fermalo al 3:55._  
+  [▶ YouTube](https://www.youtube.com/watch?v=J1gH_cjdb60&t=220s)
+- ✅ **Marche funèbre** – Chopin  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Marche%20fun%C3%A8bre%20Chopin) · [🎧 Spotify](https://open.spotify.com/search/Marche%20fun%C3%A8bre%20Chopin)
 
 ### 🗣️ Discussione con timer
 
-- **Think! (Jeopardy)** – Merv Griffin 😂  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Think!%20%28Jeopardy%29%20Merv%20Griffin) · [🎧 Spotify](https://open.spotify.com/search/Think!%20%28Jeopardy%29%20Merv%20Griffin)
-- **The Final Countdown** – Europe 😂  
-  [▶ YouTube](https://www.youtube.com/results?search_query=The%20Final%20Countdown%20Europe) · [🎧 Spotify](https://open.spotify.com/search/The%20Final%20Countdown%20Europe)
-
-### 🔥 Rogo
-
-- **Marche funèbre** – Chopin  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Marche%20fun%C3%A8bre%20Chopin) · [🎧 Spotify](https://open.spotify.com/search/Marche%20fun%C3%A8bre%20Chopin)
-- **Funeral March of a Marionette** – Gounod  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Funeral%20March%20of%20a%20Marionette%20Gounod) · [🎧 Spotify](https://open.spotify.com/search/Funeral%20March%20of%20a%20Marionette%20Gounod)
-- **Ring of Fire** – Johnny Cash 😂  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Ring%20of%20Fire%20Johnny%20Cash) · [🎧 Spotify](https://open.spotify.com/search/Ring%20of%20Fire%20Johnny%20Cash)
-- **Disco Inferno** – The Trammps 😂  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Disco%20Inferno%20The%20Trammps) · [🎧 Spotify](https://open.spotify.com/search/Disco%20Inferno%20The%20Trammps)
-
-### 🏆 Vince il villaggio
-
-- **We Are the Champions** – Queen  
-  [▶ YouTube](https://www.youtube.com/results?search_query=We%20Are%20the%20Champions%20Queen) · [🎧 Spotify](https://open.spotify.com/search/We%20Are%20the%20Champions%20Queen)
-- **Inno alla gioia** – Beethoven  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Inno%20alla%20gioia%20Beethoven) · [🎧 Spotify](https://open.spotify.com/search/Inno%20alla%20gioia%20Beethoven)
-
-### 🐺 Vincono i lupi
-
-- **Imperial March** – John Williams  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Imperial%20March%20John%20Williams) · [🎧 Spotify](https://open.spotify.com/search/Imperial%20March%20John%20Williams)
-- **Bad Moon Rising** – Creedence Clearwater Revival  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Bad%20Moon%20Rising%20Creedence%20Clearwater%20Revival) · [🎧 Spotify](https://open.spotify.com/search/Bad%20Moon%20Rising%20Creedence%20Clearwater%20Revival)
+- ✅ **Cotton Eye Joe** – Rednex 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Cotton%20Eye%20Joe%20Rednex) · [🎧 Spotify](https://open.spotify.com/search/Cotton%20Eye%20Joe%20Rednex)
 
 <a id="roles"></a>
 
-## 🎭 Ruoli
+## 🎭 I ruoli che giocate
 
 ### 🐺 Lupi
 
-- **Werewolves of London** – Warren Zevon  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Werewolves%20of%20London%20Warren%20Zevon) · [🎧 Spotify](https://open.spotify.com/search/Werewolves%20of%20London%20Warren%20Zevon)
-- **Hungry Like the Wolf** – Duran Duran  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Hungry%20Like%20the%20Wolf%20Duran%20Duran) · [🎧 Spotify](https://open.spotify.com/search/Hungry%20Like%20the%20Wolf%20Duran%20Duran)
-- **Una notte sul Monte Calvo** – Musorgskij  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Una%20notte%20sul%20Monte%20Calvo%20Musorgskij) · [🎧 Spotify](https://open.spotify.com/search/Una%20notte%20sul%20Monte%20Calvo%20Musorgskij)
+- **Ululato classico**  
+  [▶ YouTube](https://www.youtube.com/results?search_query=wolf%20howl%20sound%20effect)
 
 ### 🧑‍🌾 Contadino
 
-- **Cotton Eye Joe** – Rednex 😂  
+- ✅ **Cotton Eye Joe** – Rednex 😂  
   [▶ YouTube](https://www.youtube.com/results?search_query=Cotton%20Eye%20Joe%20Rednex) · [🎧 Spotify](https://open.spotify.com/search/Cotton%20Eye%20Joe%20Rednex)
 
-### 🔮 Veggente
+### 🔮 Veggente (nuove idee)
 
-- **Paul’s Dream (Dune)** – Hans Zimmer  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Paul%E2%80%99s%20Dream%20%28Dune%29%20Hans%20Zimmer) · [🎧 Spotify](https://open.spotify.com/search/Paul%E2%80%99s%20Dream%20%28Dune%29%20Hans%20Zimmer)
-- **I Put a Spell on You** – Screamin’ Jay Hawkins  
-  [▶ YouTube](https://www.youtube.com/results?search_query=I%20Put%20a%20Spell%20on%20You%20Screamin%E2%80%99%20Jay%20Hawkins) · [🎧 Spotify](https://open.spotify.com/search/I%20Put%20a%20Spell%20on%20You%20Screamin%E2%80%99%20Jay%20Hawkins)
+- **Eye in the Sky** – The Alan Parsons Project 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Eye%20in%20the%20Sky%20The%20Alan%20Parsons%20Project) · [🎧 Spotify](https://open.spotify.com/search/Eye%20in%20the%20Sky%20The%20Alan%20Parsons%20Project)
+- **Black Magic Woman** – Santana  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Black%20Magic%20Woman%20Santana) · [🎧 Spotify](https://open.spotify.com/search/Black%20Magic%20Woman%20Santana)
+- **Crystal Ball** – Keane  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Crystal%20Ball%20Keane) · [🎧 Spotify](https://open.spotify.com/search/Crystal%20Ball%20Keane)
 
-### 💋 Puttana
+### 💋 Puttana (quella che dorme con qualcuno)
 
 - **Roxanne** – The Police 😂  
   [▶ YouTube](https://www.youtube.com/results?search_query=Roxanne%20The%20Police) · [🎧 Spotify](https://open.spotify.com/search/Roxanne%20The%20Police)
@@ -121,13 +83,37 @@ Tocca **YouTube** o **Spotify**: si apre la ricerca già pronta (di solito il pr
   [▶ YouTube](https://www.youtube.com/results?search_query=Careless%20Whisper%20George%20Michael) · [🎧 Spotify](https://open.spotify.com/search/Careless%20Whisper%20George%20Michael)
 - **Je t’aime… moi non plus** – Serge Gainsbourg e Jane Birkin 😂  
   [▶ YouTube](https://www.youtube.com/results?search_query=Je%20t%E2%80%99aime%E2%80%A6%20moi%20non%20plus%20Serge%20Gainsbourg%20e%20Jane%20Birkin) · [🎧 Spotify](https://open.spotify.com/search/Je%20t%E2%80%99aime%E2%80%A6%20moi%20non%20plus%20Serge%20Gainsbourg%20e%20Jane%20Birkin)
-
-### 🛡️ Guardia
-
-- **Eye of the Tiger** – Survivor  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Eye%20of%20the%20Tiger%20Survivor) · [🎧 Spotify](https://open.spotify.com/search/Eye%20of%20the%20Tiger%20Survivor)
 - **I Will Always Love You** – Whitney Houston 😂  
   [▶ YouTube](https://www.youtube.com/results?search_query=I%20Will%20Always%20Love%20You%20Whitney%20Houston) · [🎧 Spotify](https://open.spotify.com/search/I%20Will%20Always%20Love%20You%20Whitney%20Houston)
+
+### ⛪ Prete kamikaze
+
+- **Jump** – Van Halen 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Jump%20Van%20Halen) · [🎧 Spotify](https://open.spotify.com/search/Jump%20Van%20Halen)
+- **La cavalcata delle Valchirie** – Wagner 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=La%20cavalcata%20delle%20Valchirie%20Wagner) · [🎧 Spotify](https://open.spotify.com/search/La%20cavalcata%20delle%20Valchirie%20Wagner)
+- **Ave Maria** – Schubert  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Ave%20Maria%20Schubert) · [🎧 Spotify](https://open.spotify.com/search/Ave%20Maria%20Schubert)
+
+### 🤪 Folle (scemo del villaggio)
+
+- **Yakety Sax (Benny Hill)** – Boots Randolph 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Yakety%20Sax%20%28Benny%20Hill%29%20Boots%20Randolph) · [🎧 Spotify](https://open.spotify.com/search/Yakety%20Sax%20%28Benny%20Hill%29%20Boots%20Randolph)
+- **Axel F** – Crazy Frog 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Axel%20F%20Crazy%20Frog) · [🎧 Spotify](https://open.spotify.com/search/Axel%20F%20Crazy%20Frog)
+- **Crazy** – Gnarls Barkley 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Crazy%20Gnarls%20Barkley) · [🎧 Spotify](https://open.spotify.com/search/Crazy%20Gnarls%20Barkley)
+
+<a id="others"></a>
+
+## 🃏 Altri ruoli (non li usate ancora)
+
+### 🌹 Cortigiana
+
+- **Pretty Woman** – Roy Orbison 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Pretty%20Woman%20Roy%20Orbison) · [🎧 Spotify](https://open.spotify.com/search/Pretty%20Woman%20Roy%20Orbison)
+- **Lola** – The Kinks 😂  
+  [▶ YouTube](https://www.youtube.com/results?search_query=Lola%20The%20Kinks) · [🎧 Spotify](https://open.spotify.com/search/Lola%20The%20Kinks)
 
 ### 🕯️ Medium
 
@@ -197,11 +183,6 @@ Tocca **YouTube** o **Spotify**: si apre la ricerca già pronta (di solito il pr
 - **The Pink Panther Theme** – Henry Mancini 😂  
   [▶ YouTube](https://www.youtube.com/results?search_query=The%20Pink%20Panther%20Theme%20Henry%20Mancini) · [🎧 Spotify](https://open.spotify.com/search/The%20Pink%20Panther%20Theme%20Henry%20Mancini)
 
-### 🤪 Scemo del villaggio
-
-- **Yakety Sax (Benny Hill)** – Boots Randolph 😂  
-  [▶ YouTube](https://www.youtube.com/results?search_query=Yakety%20Sax%20%28Benny%20Hill%29%20Boots%20Randolph) · [🎧 Spotify](https://open.spotify.com/search/Yakety%20Sax%20%28Benny%20Hill%29%20Boots%20Randolph)
-
 ### 🎩 Sindaco
 
 - **Il Padrino (tema)** – Nino Rota  
@@ -215,51 +196,37 @@ Tocca **YouTube** o **Spotify**: si apre la ricerca già pronta (di solito il pr
 
 ### 🌌 Notte e ambiente
 
-- **Ululato di lupo**  
+- **Ululato classico**  
   [▶ YouTube](https://www.youtube.com/results?search_query=wolf%20howl%20sound%20effect)
 - **Branco di lupi in lontananza**  
   [▶ YouTube](https://www.youtube.com/results?search_query=wolf%20pack%20howling%20night%20forest)
-- **Gufo**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=owl%20hooting%20sound%20effect)
-- **Grilli di notte**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=crickets%20night%20ambience)
 - **12 rintocchi di mezzanotte**  
   [▶ YouTube](https://www.youtube.com/results?search_query=church%20bell%20midnight%2012%20chimes)
 - **Temporale e pioggia**  
   [▶ YouTube](https://www.youtube.com/results?search_query=rain%20thunderstorm%20ambience)
-- **Fuoco che scoppietta**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=fireplace%20crackling)
 
-### 🌅 Mattina e sonno
+### 🌅 Sonno e mattina
 
-- **Gallo che canta**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=rooster%20crow%20sound%20effect)
 - **Russare**  
   [▶ YouTube](https://www.youtube.com/results?search_query=snoring%20sound%20effect)
-- **Sbadiglio**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=yawn%20sound%20effect)
+- **Gallo che canta**  
+  [▶ YouTube](https://www.youtube.com/results?search_query=rooster%20crow%20sound%20effect)
 
-### 🎭 Ruoli
+### 🎭 I vostri ruoli
 
-- **Porta che cigola**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=creaking%20door%20sound%20effect)
-- **Passi furtivi**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=sneaking%20footsteps%20sound%20effect)
-- **Battito cardiaco**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=heartbeat%20sound%20effect)
-- **Sparo (cacciatore)**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=gunshot%20sound%20effect)
-- **Pozione che ribolle (strega)**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=potion%20bubbling%20sound%20effect)
-- **Risata da strega**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=witch%20laugh%20sound%20effect)
-- **Sussurri di fantasmi (medium)**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=ghost%20whispers%20sound%20effect)
+- **Puttana: letto che cigola**  
+  [▶ YouTube](https://www.youtube.com/results?search_query=bed%20creaking%20sound%20effect)
+- **Veggente: sfera di cristallo**  
+  [▶ YouTube](https://www.youtube.com/results?search_query=crystal%20ball%20magic%20chime%20sound%20effect)
+- **Prete: campana a morto**  
+  [▶ YouTube](https://www.youtube.com/results?search_query=single%20church%20bell%20toll%20sound%20effect)
+- **Prete: lancio kamikaze**  
+  [▶ YouTube](https://www.youtube.com/results?search_query=wilhelm%20scream)
+- **Folle: risata pazza**  
+  [▶ YouTube](https://www.youtube.com/results?search_query=crazy%20laugh%20sound%20effect)
 
 ### 🗣️ Giorno e votazione
 
-- **Brusio della folla**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=crowd%20murmur%20sound%20effect)
 - **Rullo di tamburi**  
   [▶ YouTube](https://www.youtube.com/results?search_query=drum%20roll%20sound%20effect)
 - **Martelletto**  
@@ -269,8 +236,6 @@ Tocca **YouTube** o **Spotify**: si apre la ricerca già pronta (di solito il pr
 
 ### 😂 Colpi di scena comici
 
-- **Wilhelm scream**  
-  [▶ YouTube](https://www.youtube.com/results?search_query=wilhelm%20scream)
 - **Dun dun dun**  
   [▶ YouTube](https://www.youtube.com/results?search_query=dun%20dun%20dun%20sound%20effect)
 - **Disco che gratta**  

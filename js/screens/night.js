@@ -33,8 +33,8 @@ export function startNight(app) {
 }
 
 function startAmbient() {
-  const a = settings().ambient;
-  if (a && a !== 'none') audio.startLoop(a);
+  const a = audio.ambientId(settings().ambient);
+  if (a) audio.startLoop(a);
 }
 
 function stepCall(step) {
@@ -67,7 +67,6 @@ export function renderNight(app) {
           startAmbient();
           const first = g.steps[0];
           speakSequence(['Il villaggio si addormenta. Tutti chiudete gli occhi.', first && stepCall(first)], 3000);
-          if (first) setTimeout(() => audio.play(getRole(first.roleId).night.sound), 3500);
           app.update((game) => { game.step = 0; });
         },
       }, '🌙 Il villaggio si addormenta'),
@@ -107,7 +106,7 @@ export function renderNight(app) {
       h('span', {}, `“${stepCall(step)}”`),
       h('button', {
         class: 'btn small ghost',
-        onclick: () => { speak(stepCall(step)); audio.play(r.night.sound); },
+        onclick: () => speak(stepCall(step)),
       }, '🔊 Ripeti')),
     body,
     h('div', { class: 'row step-nav' },
@@ -120,7 +119,6 @@ export function renderNight(app) {
         onclick: () => {
           const next = g.steps[g.step + 1];
           speakSequence([stepClose(step), next ? stepCall(next) : null], 2500);
-          if (next) setTimeout(() => audio.play(getRole(next.roleId).night.sound), 3000);
           app.update((game) => { game.step++; });
         },
       }, isLast ? '😴 Chiudi gli occhi e vai all’alba' : '😴 Chiudi gli occhi · Avanti')),
@@ -148,23 +146,41 @@ function actionUI(app, step, r, alive, a, set) {
       break;
     case 'visit':
       add(box,
-        h('div', { class: 'label' }, 'Da chi passa la notte la puttana?'),
+        h('div', { class: 'label' }, 'Da chi passa la notte la cortigiana?'),
         playerPicker(alive, {
-          selected: a.harlot,
+          selected: a.visit,
           blocked: (p) => (me.includes(p.id) ? 'lei' : null),
-          onPick: (p) => set({ harlot: a.harlot === p.id ? null : p.id }),
+          onPick: (p) => set({ visit: a.visit === p.id ? null : p.id }),
         }),
-        h('div', { class: 'muted small' }, a.harlot == null ? 'Nessuna scelta: resta a casa sua.' : ''));
+        h('div', { class: 'muted small' }, a.visit == null ? 'Nessuna scelta: resta a casa sua.' : ''));
       break;
     case 'protect':
       add(box,
-        h('div', { class: 'label' }, 'Chi protegge la guardia?'),
+        h('div', { class: 'label' }, 'Con chi dorme la puttana? (lo salva dai lupi)'),
         playerPicker(alive, {
-          selected: a.guard,
-          blocked: (p) => (me.includes(p.id) ? 'sé stessa' : p.id === g.lastGuard ? 'ieri' : null),
-          onPick: (p) => set({ guard: a.guard === p.id ? null : p.id }),
+          selected: a.protect,
+          onPick: (p) => set({ protect: a.protect === p.id ? null : p.id }),
         }));
       break;
+    case 'priest': {
+      if (g.priestUsed) {
+        add(box, h('div', { class: 'notice' }, '⛪ Il prete ha già usato la sua occasione: fagli segno di no.'));
+        break;
+      }
+      const target = a.priest != null ? byId(a.priest) : null;
+      add(box,
+        h('div', { class: 'label' }, 'Il prete si lancia su qualcuno? (una sola volta in tutta la partita)'),
+        playerPicker(alive, {
+          selected: a.priest,
+          blocked: (p) => (me.includes(p.id) ? 'lui' : null),
+          onPick: (p) => set({ priest: a.priest === p.id ? null : p.id }),
+        }),
+        target
+          ? h('div', { class: `verdict ${target.role === 'lupo' ? 'good' : 'bad'}` },
+            target.role === 'lupo' ? `🐺 ${target.name} è un lupo: muore, il prete si salva` : `😇 ${target.name} NON è un lupo: il prete muore`)
+          : h('div', { class: 'muted small' }, 'Nessuna scelta: il prete non si lancia stanotte.'));
+      break;
+    }
     case 'see': {
       add(box,
         h('div', { class: 'label' }, 'Chi scruta la veggente?'),
@@ -194,7 +210,7 @@ function actionUI(app, step, r, alive, a, set) {
     case 'witch': {
       const victim = a.wolves != null ? byId(a.wolves) : null;
       add(box,
-        h('div', { class: 'notice' }, victim ? `🐺 I lupi hanno scelto: ${victim.name}${a.guard === victim.id ? ' (protetto dalla guardia)' : ''}` : 'I lupi non hanno scelto nessuno.'),
+        h('div', { class: 'notice' }, victim ? `🐺 I lupi hanno scelto: ${victim.name}${a.protect === victim.id ? ' (protetto dalla puttana)' : ''}` : 'I lupi non hanno scelto nessuno.'),
         g.witch.life && victim ? h('button', {
           class: `btn ${a.witchSave ? 'primary' : 'ghost'}`,
           onclick: () => set({ witchSave: !a.witchSave, witchKill: a.witchKill === victim.id ? null : a.witchKill }),
@@ -297,8 +313,9 @@ export function finishNight(app) {
     g.players.find((p) => p.id === y).lover = x;
     lines.push(`💘 Innamorati: ${name(x)} e ${name(y)}`);
   }
-  if (a.harlot != null) lines.push(`💋 La puttana è andata da ${name(a.harlot)}`);
-  if (a.guard != null) lines.push(`🛡️ La guardia ha protetto ${name(a.guard)}`);
+  if (a.visit != null) lines.push(`🌹 La cortigiana è andata da ${name(a.visit)}`);
+  if (a.protect != null) lines.push(`💋 La puttana ha dormito da ${name(a.protect)}`);
+  if (a.priest != null) lines.push(`⛪ Il prete si è lanciato su ${name(a.priest)}`);
   if (a.wolves != null) lines.push(`🐺 I lupi hanno attaccato ${name(a.wolves)}`);
   if (a.seer != null) lines.push(`🔮 La veggente ha scrutato ${name(a.seer)}`);
   if (a.witchSave) lines.push('🧪 La strega ha usato la pozione di vita');
@@ -310,7 +327,7 @@ export function finishNight(app) {
 
   if (a.witchSave) g.witch.life = false;
   if (a.witchKill != null) g.witch.death = false;
-  g.lastGuard = a.guard ?? null;
+  if (a.priest != null) g.priestUsed = true;
   g.owlMark = a.owl ?? null;
   g.day = g.night;
   g.dawn = { deaths: res.deaths, notes };
@@ -324,30 +341,24 @@ export function finishNight(app) {
   app.log(`Notte ${g.night}`, lines);
 
   audio.stopAll();
-  setTimeout(() => audio.play('dawn'), 150);
   app.save();
   app.render();
 }
 
-// Barra dei suoni rapidi durante la notte.
+// Barra dei suoni rapidi durante la notte: battito, atmosfera e stop.
 function quickSounds() {
   const bar = h('div', { class: 'quick-sounds' });
   const draw = () => {
+    const ambient = audio.ambientId(settings().ambient);
     fill(bar,
-      ...['howl', 'owl', 'door', 'scream', 'heartbeat'].map((id) => {
-        if (id === 'heartbeat') {
-          return h('button', {
-            class: `qs ${audio.isLooping('heart') ? 'on' : ''}`,
-            onclick: () => { audio.toggleLoop('heart'); draw(); },
-          }, '💓');
-        }
-        const s = audio.SOUNDS.find((x) => x.id === id);
-        return h('button', { class: 'qs', onclick: () => audio.play(id) }, s.emoji);
-      }),
       h('button', {
-        class: `qs ${audio.isLooping(settings().ambient) ? 'on' : ''}`,
-        onclick: () => { const a = settings().ambient; if (a && a !== 'none') audio.toggleLoop(a); draw(); },
-      }, audio.LOOPS.find((l) => l.id === settings().ambient)?.emoji || '🦗'),
+        class: `qs ${audio.isLooping('heart') ? 'on' : ''}`,
+        onclick: () => { audio.toggleLoop('heart'); draw(); },
+      }, '💓'),
+      ambient ? h('button', {
+        class: `qs ${audio.isLooping(ambient) ? 'on' : ''}`,
+        onclick: () => { audio.toggleLoop(ambient); draw(); },
+      }, audio.LOOPS.find((l) => l.id === ambient).emoji) : null,
       h('button', { class: 'qs', onclick: () => { audio.stopAll(); draw(); } }, '⏹'),
     );
   };

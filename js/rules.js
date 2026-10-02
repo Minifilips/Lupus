@@ -23,7 +23,8 @@ export function buildNightSteps(players, nightNum, bluff = true) {
 }
 
 // Calcola chi muore all'alba dalle azioni notturne. Non modifica i giocatori.
-// a = { wolves, guard, harlot, seer, witchSave, witchKill }
+// a = { wolves, protect, visit, seer, witchSave, witchKill, priest }
+//   protect: chi salva la puttana dormendo da lui; visit: dove va la cortigiana
 export function resolveNight(players, a) {
   const deaths = [];
   const notes = [];
@@ -32,24 +33,24 @@ export function resolveNight(players, a) {
     if (id != null && alive(id) && !deaths.some((d) => d.id === id)) deaths.push({ id, cause });
   };
 
-  const harlot = players.find((p) => p.alive && p.role === 'puttana');
-  const harlotAway = !!harlot && a.harlot != null && a.harlot !== harlot.id;
+  const courtesan = players.find((p) => p.alive && p.role === 'cortigiana');
+  const courtesanAway = !!courtesan && a.visit != null && a.visit !== courtesan.id;
 
   const v = a.wolves;
   let victimKilled = false;
   if (v != null && alive(v)) {
     const vp = find(players, v);
-    if (a.guard === v) notes.push(`La guardia ha salvato ${vp.name}.`);
+    if (a.protect === v) notes.push(`La puttana ha salvato ${vp.name}.`);
     else if (vp.role === 'criceto') notes.push(`${vp.name} è il criceto mannaro: i lupi non possono ucciderlo.`);
-    else if (harlot && v === harlot.id && harlotAway) notes.push(`${vp.name} (puttana) non era in casa: si salva.`);
+    else if (courtesan && v === courtesan.id && courtesanAway) notes.push(`${vp.name} (cortigiana) non era in casa: si salva.`);
     else if (a.witchSave) notes.push(`La strega ha salvato ${vp.name}.`);
     else { add(v, 'Sbranato dai lupi'); victimKilled = true; }
   }
 
-  if (harlotAway) {
-    const host = find(players, a.harlot);
-    if (victimKilled && a.harlot === v) add(harlot.id, `Era a casa di ${host.name}, la vittima dei lupi`);
-    else if (host && host.role === 'lupo') add(harlot.id, `È andata a casa di un lupo (${host.name})`);
+  if (courtesanAway) {
+    const host = find(players, a.visit);
+    if (victimKilled && a.visit === v) add(courtesan.id, `Era a casa di ${host.name}, la vittima dei lupi`);
+    else if (host && host.role === 'lupo') add(courtesan.id, `È andata a casa di un lupo (${host.name})`);
   }
 
   if (a.seer != null) {
@@ -58,6 +59,20 @@ export function resolveNight(players, a) {
   }
 
   if (a.witchKill != null) add(a.witchKill, 'Avvelenato dalla strega');
+
+  // Il prete si lancia (una sola volta): su un lupo lo uccide, su chiunque altro muore lui.
+  if (a.priest != null) {
+    const priest = players.find((p) => p.alive && p.role === 'prete');
+    const target = find(players, a.priest);
+    if (priest && target?.alive) {
+      if (target.role === 'lupo') {
+        add(target.id, `Placcato dal prete ${priest.name}`);
+        notes.push(`${priest.name} (prete) si è lanciato su ${target.name}: era un lupo!`);
+      } else {
+        add(priest.id, `Si è lanciato su ${target.name}, che non era un lupo`);
+      }
+    }
+  }
 
   return { deaths, notes };
 }
